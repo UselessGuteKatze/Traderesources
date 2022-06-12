@@ -1,0 +1,67 @@
+﻿.select-item {
+}
+
+.select-item span {
+    padding-left: 18px;
+}
+
+.select-item-unchecked {
+    background-image: url(https://ruqsat.qoldau.kz/UiCorePackages/ui-packages/editors/filter/images/checkbox-unchecked.png);
+    background-repeat: no-repeat;
+}
+
+.select-item-intermediate {
+    background-image: url(https://ruqsat.qoldau.kz/UiCorePackages/ui-packages/editors/filter/images/checkbox-partial.png);
+    background-repeat: no-repeat;
+}
+
+.select-item-checked {
+    background-image: url(https://ruqsat.qoldau.kz/UiCorePackages/ui-packages/editors/filter/images/checkbox-checked.png);
+    background-repeat: no-repeat;
+}
+
+.item-list-expanded {
+    background-image: url(https://ruqsat.qoldau.kz/UiCorePackages/ui-packages/editors/filter/images/expanded.png);
+    background-repeat: no-repeat;
+}
+
+.item-list-collapsed {
+    background-image: url(https://ruqsat.qoldau.kz/UiCorePackages/ui-packages/editors/filter/images/collapsed.png);
+    background-repeat: no-repeat;
+}
+
+.child-items {
+    padding-left: 10px;
+}
+
+.fa-chevron-right:before, .fa-chevron-down:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    padding-right: 5px;
+    font-size: 7pt;
+    vertical-align: baseline;
+}
+
+.field-hover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.items-list {
+    position: relative;
+    padding: 25px 5px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.list-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 14pt;
+    padding: 5px;
+    z-index: 1;
+}

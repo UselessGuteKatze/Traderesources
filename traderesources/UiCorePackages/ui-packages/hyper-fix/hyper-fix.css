@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'MuseoSansCyrl';
+    src: url('../hyper-theme/fonts/museo-sans-cyrl/fonts/MuseoSansCyrl-900.eot');
+    src: local('MuseoSansCyrl-900'), local('MuseoSansCyrl-900'), url('../hyper-theme/fonts/museo-sans-cyrl/fonts/MuseoSansCyrl-900.eot?#iefix') format('embedded-opentype'), url('../hyper-theme/fonts/museo-sans-cyrl/fonts/MuseoSansCyrl-900.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+body {
+    color: #121415;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+
+@media (max-width: 768px) {
+    .font-scale-xs-5 {
+        font-size: 5vw;
+    }
+
+    .font-scale-xs-3 {
+        font-size: 3vw;
+    }
+}
+
+/************************************** TEXT / FONT **********************************/
+
+.text-shadow-1 {
+    text-shadow: 1px 1px 2px #00000047;
+}
+
+.font-31 {
+    font-size: 31px !important;
+}
+
+.font-weight-900 {
+    font-weight: 900;
+}
+
+
+
+table {
+    color: #121415 !important;
+}
+
+.table thead th {
+    border-bottom: 2px solid #d1d6dd;
+}
+
+.table th, .table td {
+    border-top: 1px solid #d1d6dd;
+}
+
+
+
+.cabinet-name {
+    background-color: #20242B;
+    color: #fff;
+    text-align: center;
+    font-size: 0.9375rem;
+    padding: 20px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button-menu-mobile {
+    line-height: 60px;
+}
+
+/************************************** MENU **********************************/
+/***to remove*/
+.menu-logo-mobile {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 140px;
+    height: 70px;
+    display: inline-block;
+    position: absolute;
+    left: 40px;
+}
+
+.logo-top-compact {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    float: left;
+    width: 150px;
+    height: 70px;
+    left: 50px;
+    position: absolute;
+}
+
+.button-menu-mobile {
+    width: 70px;
+    color: #262e38;
+    font-size: 32px;
+}
+
+/******Width to 320********/
+.navbar-custom {
+    left: 320px;
+}
+
+.content-page {
+    margin-left: 320px;
+}
+
+.logo {
+    width: 320px;
+}
+
+.menu-logo {
+    width: 320px;
+}
+
+.left-side-menu {
+    width: 320px;
+}
+
+.footer {
+    left: 320px;
+}
+
+body[data-leftbar-compact-mode="condensed"] .side-nav .side-nav-item:hover .side-nav-link {
+    width: 320px;
+}
+
+body[data-leftbar-compact-mode="condensed"] .side-nav .side-nav-item:hover > ul {
+    width: 250px;
+}
+/**************/
+body[data-leftbar-theme="dark"] .left-side-menu, body[data-leftbar-theme="dark"] .left-side-menu .logo {
+    background: #262e38 !important;
+}
+
+
+
+
+/************************************** CARD **********************************/
+.card-fluid {
+    height: calc(100% - 20px);
+}
+
+
+.card-btn-position-bc {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
+}
+
+.card-hover {
+    -webkit-transition: box-shadow 0.5s ease-out;
+    -moz-transition: box-shadow 0.5s ease-out;
+    -o-transition: box-shadow 0.5s ease-out;
+    transition: box-shadow 0.5s ease-out;
+    -webkit-transition: -webkit-box-shadow 0.5s ease-out;
+    -moz-transition: -webkit-box-shadow 0.5s ease-out;
+    -o-transition: -webkit-box-shadow 0.5s ease-out;
+    transition: 0.5s ease-out;
+}
+
+    .card-hover:hover {
+        -webkit-box-shadow: 0 0 25px 0 rgb(154 161 171 / 55%);
+        box-shadow: 0 0 25px 0 rgb(154 161 171 / 55%);
+    }
+
+
+
+/************************************** BY VALERA **********************************/
+
+body {
+    overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(255 255 255 / 0%);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(41 62 89 / 68%);
+    border-radius: 0.15rem;
+}
+
+.form-wizard-header {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    background-color: #eef2f7;
+}
+
+/************************************** BY VALERA **********************************/

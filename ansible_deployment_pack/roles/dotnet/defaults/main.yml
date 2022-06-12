@@ -1,0 +1,3 @@
+---
+dotnet_package: "dotnet-hosting-2.0.9"
+dotnet_debian_repo_gpg_key_url: "https://nexus.aq.servers.lan:8443/repository/proxy-packages.microsoft.com/keys/microsoft.asc"

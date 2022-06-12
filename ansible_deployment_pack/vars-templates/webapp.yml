@@ -1,0 +1,28 @@
+acceptingHosts:
+    - subsidies
+
+
+webapp: 
+    name: appName
+    description: Put description of application here
+    appEntryPoint: bin/netcoreapp2.0/publish/Yoda.dll
+    webRootDir: "/home/devops/web"
+    deployArtifacts:
+        url: #"https://gitlab.servers.lan/api/v4/projects/GITLAB_PROJ_ID/jobs/artifacts/master/download?job=JOB_ID"
+        headers:
+#           "PRIVATE-TOKEN": "GITLAB_PRIVATE_TOKEN"
+
+    environment: Production
+    acceptingHosts: "subsidies".qoldau.kz
+    worldListenPort: 443
+    #sslCertificate:
+    #    pub: /path/to/certificate/pub.crt
+    #    key: /path/to/certifcate/key.crt
+    vault:
+        secretPath: appuser/subsidies
+        userName: appuser
+        userPassword: somepwd
+    basePort: 6500
+    warmupHost: subsidies.qoldau.kz
+    warmupPath: ru 
+    forceUpdateServiceNumber: "{{ serviceNumber }}|default(-1)"

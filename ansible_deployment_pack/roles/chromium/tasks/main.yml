@@ -1,0 +1,7 @@
+- name: install chromium
+  vars:
+  block: 
+    - name: Ensure chromium installed
+      package:
+        name: chromium
+        state: present

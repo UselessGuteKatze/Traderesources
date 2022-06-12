@@ -1,0 +1,171 @@
+- name: Dotnet webserver
+  vars:
+    appService:
+      serviceName: "{{ appName }}.service"
+      description: "{{ appDescription }}"
+      entryDll: "{{ appEntryPoint }}"
+      environment: "{{ appEnvironment }}"
+      vault:
+        serverUrl: "{{ vault.serverUrl }}"
+        secretPath: "{{ vault.secretPath }}"
+        userName: "{{ vault.userName }}"
+        userPassword: "{{ vault.userPassword }}"
+      serviceDir: "{{ appRootDir }}/{{appName}}"
+      serviceHomeDir: "{{ appRootDir }}/{{appName}}"
+  block:
+    - name: Init systemd services
+      block:
+        - name: Init service app directories
+          file:
+            state: directory
+            path: "{{ item.serviceDir }}"
+            owner: devops
+            group: devops
+            mode: '0777'
+          with_items:
+            - "{{ appService }}"
+
+        - name: Init app systemd services
+          template:
+            src: templates/app.service.j2
+            dest: "/etc/systemd/system/{{ item.serviceName }}"
+          with_items:
+            - "{{ appService }}"
+
+        - name: Ensure unzip installed
+          package:
+            name: unzip
+            state: present
+      when: initService is defined and initService == true
+
+    - name: Init elk
+      block:
+        - name: Add GPG-KEY-elasticsearch Centos
+          rpm_key:
+            state: present
+            key: https://nexus.aq.servers.lan:8443/repository/proxy-all/GPG-KEY-elasticsearch
+          when: ansible_os_family=="RedHat"
+
+        - name: Add GPG-KEY-elasticsearch UBUNTU
+          apt_key:
+            state: present
+            url: https://nexus.aq.servers.lan:8443/repository/proxy-all/GPG-KEY-elasticsearch
+          when: ansible_os_family=="Debian"
+
+        - name: Add elk repo Centos
+          template:
+            src: elk.repo.j2
+            dest: /etc/yum.repos.d/elk.repo
+          when: ansible_os_family=="RedHat"
+
+        - name: Add elk repo UBUNTU
+          template:
+            src: elk-apt.repo.j2
+            dest: /etc/apt/sources.list.d/elk-apt.list
+          when: ansible_os_family=="Debian"
+
+        - name: install journalbeat Centos
+          yum:
+            name:
+              - journalbeat
+            state: latest
+            enablerepo: elk
+          when: ansible_os_family=="RedHat"
+
+        - name: install journalbeat UBUNTU
+          apt:
+            name:
+              - journalbeat
+            state: latest
+            update_cache: yes
+          when: ansible_os_family=="Debian"
+
+        - name: Configure journalbeat
+          replace:
+            path: /etc/journalbeat/journalbeat.yml
+            regexp: "{{item.1}}"
+            replace: "{{item.2}}"
+            backup: yes
+          with_items:
+          - { 1: '^(output\.elasticsearch\:)$', 2: '#output.elasticsearch:' }
+          - { 1: '^(\s\shosts\:\s\[\"localhost\:9200\"\])$', 2: '  #hosts: ["localhost:9200"]' }
+          - { 1: '^(\#output\.logstash\:)$', 2: 'output.logstash:' }
+          - { 1: '^(\s\s\#hosts\:\s\[\"localhost\:5044\"\])$', 2: '  hosts: ["kibana.aq.servers.lan:5044"]' }
+          - { 1: '^(\s\s\#include\_matches\:\s\[\])$', 2: '  include_matches:' }
+
+        - name: Configure journalbeat CENTOS
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: '^\output\.logstash\:'
+          with_items:
+            - '  loadbalance: true'
+          when: ansible_os_family=="RedHat"
+
+        - name: Configure journalbeat UBUNTU
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: 'output.logstash:'
+          with_items:
+            - '  loadbalance: true'
+          when: ansible_os_family=="Debian"
+
+        - name: "Configure service {{ appName }}.service to monitoring"
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: '^\s\sinclude\_matches\:'
+          with_items:
+            - '   - "systemd.unit={{ appName }}.service"'
+
+        - name: Restart service journalbeat
+          systemd:
+            name: journalbeat
+            state: restarted
+            enabled: yes
+      when: initService is defined and initService == true
+
+    - name: Deploy service
+      block:
+        - name: Transfer artifacts from localhost
+          copy:
+            src: "{{ deployArtifactsPath }}"
+            dest: "{{ appRootDir }}/{{ appName }}_deploy.zip"
+            backup: yes
+
+        - name: Stop updating service if it's running
+          service:
+            name: "{{ appService.serviceName }}"
+            state: stopped
+            enabled: no
+
+        - name: Wait for service stopping (5 seconds)
+          wait_for:
+            timeout: 5
+
+        - name: Clear previous artifacts files and directories
+          file:
+            state: "{{ item }}"
+            path: "{{ appService.serviceDir }}"
+            owner: devops
+            group: devops
+            mode: '0777'
+          with_items:
+            - absent
+            - directory
+
+        - name: Unarchieve artifacts
+          unarchive:
+            src: "{{ appRootDir }}/{{ appName }}_deploy.zip"
+            dest: "{{ appService.serviceDir }}"
+            remote_src: yes
+            owner: devops
+            group: devops
+
+        - name: Start updating service
+          service:
+            name: "{{ appService.serviceName }}"
+            state: restarted
+            enabled: yes
+      when: deployService is defined and deployService == true

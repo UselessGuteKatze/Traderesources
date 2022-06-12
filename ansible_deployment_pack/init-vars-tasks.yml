@@ -1,0 +1,50 @@
+- name: Check configuration file provided
+  fail: 
+    msg: "Configuration file wasn't provided. Please provide configuration file via config_file variable"
+  when: config_file is undefined or config_file == ""
+
+- name: Search for configuration file
+  include_vars: "{{ config_file }}"
+  
+- name: Set server configuration facts
+  set_fact: 
+    webappServices:
+      service1:
+        serviceName: "{{ webapp.name }}-1.service"
+        description: "{{ webapp.description }} (1)"
+        entryDll: "{{ webapp.appEntryPoint }}"
+        environment: "{{ webapp.environment }}"
+        vault:
+          secretPath: "{{ webapp.vault.secretPath }}"
+          userName: "{{ webapp.vault.userName }}"
+          userPassword: "{{ webapp.vault.userPassword }}"
+        webDir: "{{ webapp.webRootDir }}/{{webapp.name}}-1"
+        webHomeDir: "{{ webapp.webRootDir }}/{{webapp.name}}-1/publish"
+        url: http://localhost:{{ webapp.basePort + 0  }}
+        warmupUrl: http://localhost:{{ webapp.basePort + 0  }}/{{ webapp.warmupPath|regex_replace('^\\/', '') }}
+        warmupHost: "{{ webapp.warmupHost }}"
+        port: "{{ webapp.basePort + 0  }}"
+      service2:
+        serviceName: "{{ webapp.name }}-2.service"
+        description: "{{ webapp.description }} (2)"
+        entryDll: "{{ webapp.appEntryPoint }}"
+        environment: "{{ webapp.environment }}"
+        vault:
+          secretPath: "{{ webapp.vault.secretPath }}"
+          userName: "{{ webapp.vault.userName }}"
+          userPassword: "{{ webapp.vault.userPassword }}"
+        webDir: "{{ webapp.webRootDir }}/{{webapp.name}}-2"
+        webHomeDir: "{{ webapp.webRootDir }}/{{webapp.name}}-2/publish"
+        url: http://localhost:{{ webapp.basePort + 1  }}
+        warmupUrl: http://localhost:{{ webapp.basePort + 1  }}/{{ webapp.warmupPath|regex_replace('^\\/', '') }}
+        warmupHost: "{{ webapp.warmupHost }}"
+        port: "{{ webapp.basePort + 1 }}"
+      nginx:
+        serverConfFile: "/etc/nginx/conf.d/{{ webapp.name }}-server.conf"
+        serverLocationConfFileName: "{{ webapp.name }}-server.conf.location"
+        serverLocationConfFile: "/etc/nginx/conf.d/{{ webapp.name }}-server.conf.location"
+        defaultServiceUrl: http://localhost:{{ webapp.basePort + 0  }}
+        sslCertificatePubRootDir: "/etc/pki/nginx"
+        sslCertificatePubLocation: "/etc/pki/nginx/{{ webapp.name }}.crt"
+        sslCertificateKeyRootDir: "/etc/pki/nginx/private"
+        sslCertificateKeyLocation: "/etc/pki/nginx/private/{{ webapp.name }}.key"

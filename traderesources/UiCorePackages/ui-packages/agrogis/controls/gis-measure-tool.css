@@ -1,0 +1,106 @@
+﻿.gis-map .tooltip {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: white;
+    padding: 4px 8px;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+.gis-map .tooltip-measure {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.gis-map .tooltip-static {
+    background-color: #ffcc33;
+    color: black;
+    border: 1px solid white;
+}
+
+.gis-map .tooltip-measure:before, .gis-map .tooltip-static:before {
+    border-top: 6px solid rgba(0, 0, 0, 0.5);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    margin-left: -7px;
+    left: 50%;
+}
+
+.gis-map .tooltip-static:before {
+	border-top-color: #ffcc33;
+}
+
+.gis-map div.btn-gis-measure-length {
+    top: 232px;
+	left: .5em;
+}
+
+.gis-map button.btn-gis-measure-length {
+    background-image: url(img/btn-gis-measure-length.png);
+}
+
+.gis-map div.btn-gis-measure-area {
+    top: 270px;
+    left: .5em;
+}
+
+.gis-map button.btn-gis-measure-area {
+    background-image: url(img/btn-gis-measure-area.png);
+}
+
+.gis-map .mouse-position {
+    float: right;
+    bottom: 0px;
+    height: 20px;
+    width: 200px;
+}
+
+.gis-ol-measure-info-closer, .gis-ol-measure-info-closer :hover
+{
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    color: white;
+}
+.gis-ol-measure-info-closer:after {
+    content: "✖";
+    color: white;
+}
+
+.gis-map .ol-control button{
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.gis-ol-measure-info-closer{
+    cursor:pointer;
+}
+
+.gis-map .ol-control button.active {
+    background-color: rgba(232, 164, 0,0.6);
+}
+
+.gis-map .ol-control button.active:hover, .gis-map .ol-control button.active:focus {
+    background-color: rgba(232, 164, 0,0.7);
+}
+
+.gis-measure-info {
+    white-space: nowrap;
+    color: white;
+    margin-right: 20px;
+}
+
+.gis-measure-info-popup {
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    -webkit-filter: drop-shadow(0 1px 3px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    padding: 5px;
+    /* border-radius: 10px; */
+    border-radius:4px;
+}

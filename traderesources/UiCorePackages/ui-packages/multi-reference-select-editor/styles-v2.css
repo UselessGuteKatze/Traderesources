@@ -1,0 +1,66 @@
+﻿.multi-reference-select-editor {
+    border: 1px solid #b9b9b9;
+    padding: 5px;
+}
+
+    .multi-reference-select-editor 
+        ul {
+        list-style:none;
+        padding-left:10px;
+    }
+    .multi-reference-select-editor 
+        li {
+        cursor:pointer;
+    }
+
+    .empty-item {
+        /* font-style: italic; */
+        color: gray;
+    }
+
+.main {
+    overflow-y: scroll; 
+    max-height: 300px;
+}
+
+.rct-collapse,
+.rct-checkbox,
+.rct-node-icon {
+    padding: 0 5px;
+}
+
+.rct-collapse {
+    border: 0;
+    background: none;
+    line-height: normal;
+    color: inherit;
+    font-size: 12px;
+}
+
+.collapsed {
+    display:none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.rct-icon-expand-close {
+    content: "+";
+}
+
+.rct-icon-expand-open {
+    content: "-";
+}
+
+.checkstyle-Unchecked {
+    
+}
+
+.checkstyle-SemiChecked {
+    font-style: italic;
+}
+
+.checkstyle-Checked {
+    font-weight: bold;
+}

@@ -1,0 +1,169 @@
+- hosts: "{{ target }}"
+  pre_tasks:
+    - import_tasks: init-vars-tasks.yml
+
+  tasks:
+  - name: Gather systemd services facts
+    service_facts:
+
+  - name: Check services are installed
+    fail:
+      msg: "{{ item.serviceName }} is not installed"
+    when: ansible_facts.services[item.serviceName] is not defined
+    with_items:
+      - "{{ webappServices.service1 }}"
+      - "{{ webappServices.service2 }}"
+
+  - name: "forceUpdateServiceNumber"
+    debug:
+      var: webapp.forceUpdateServiceNumber
+  
+  - name: Auto detect service to update
+    block:
+    - name: Check that only one service currently running (1)
+      fail:
+        msg: "Both services are running"
+      when: 
+        - ansible_facts.services[webappServices.service1.serviceName].state == "running" 
+        - ansible_facts.services[webappServices.service2.serviceName].state == "running"
+      
+    - name: Check that only one service currently running (2)
+      fail:
+        msg: "Both services are dead"
+      when: 
+        - ansible_facts.services[webappServices.service1.serviceName].state != "running" 
+        - ansible_facts.services[webappServices.service2.serviceName].state != "running"
+    - name: Update service number 1
+      set_fact:
+        serviceToUpdate: "{{ webappServices.service1 }}"
+        serviceToStop: "{{ webappServices.service2 }}"
+      when: ansible_facts.services[webappServices.service2.serviceName].state == "running" 
+
+    - name: Update service number 2
+      set_fact:
+        serviceToUpdate: "{{ webappServices.service2 }}"
+        serviceToStop: "{{ webappServices.service1 }}"
+      when: ansible_facts.services[webappServices.service1.serviceName].state == "running" 
+
+    when: webapp.forceUpdateServiceNumber == -1 or webapp.forceUpdateServiceNumber == "-1"
+
+  - name: Forced service update
+    block:
+    - name: Update service number 1
+      set_fact:
+        serviceToUpdate: "{{ webappServices.service1 }}"
+        serviceToStop: "{{ webappServices.service2 }}"
+      when: webapp.forceUpdateServiceNumber == 1 or webapp.forceUpdateServiceNumber == "1"
+
+    - name: Update service number 2
+      set_fact:
+        serviceToUpdate: "{{ webappServices.service2 }}"
+        serviceToStop: "{{ webappServices.service1 }}"
+      when: webapp.forceUpdateServiceNumber == 2
+    when: webapp.forceUpdateServiceNumber != -1 and webapp.forceUpdateServiceNumber != "-1"
+
+  - name: "Service to update"
+    debug:
+      var: serviceToUpdate
+      # verbosity: 4
+  
+  - name: "Service to stop"
+    debug:
+      var: serviceToStop
+      # verbosity: 4
+
+  - name: Download artifacts
+    get_url:
+      url: "{{ webapp.deployArtifacts.url }}"
+      headers: "{{ webapp.deployArtifacts.headers }}"
+      dest: "{{ webapp.webRootDir }}/artifacts.zip"
+      group: devops
+      force: yes
+      backup: yes
+    when: webapp.deployArtifactsPath is not defined
+  
+  - name: Transfer artifacts from localhost
+    copy:
+      src: "{{ webapp.deployArtifactsPath }}"
+      dest: "{{ webapp.webRootDir }}/artifacts.zip"
+      backup: yes
+    when: webapp.deployArtifactsPath is defined
+
+  - name: Stop updating service if it's running
+    service:
+      name: "{{ serviceToUpdate.serviceName }}"
+      state: stopped
+      enabled: no
+
+  - name: Wait for service stopping (20 seconds)
+    wait_for:
+      timeout: 20
+    when: ansible_facts.services[serviceToUpdate.serviceName].state == "running"
+
+  - name: Clear previous artifacts files and directories
+    file:
+      state: "{{ item }}"
+      path: "{{ serviceToUpdate.webDir }}"
+      owner: devops
+      group: devops
+      mode: '0777'
+    with_items:
+      - absent
+      - directory
+
+  - name: Ensure unzip installed
+    package:
+      name: unzip
+      state: present
+    
+  - name: Unarchieve artifacts
+    unarchive:
+      src: "{{ webapp.webRootDir }}/artifacts.zip"
+      dest: "{{ serviceToUpdate.webDir }}"
+      remote_src: yes
+      owner: devops
+      group: devops
+
+
+  - name: Start updating service
+    service:
+      name: "{{ serviceToUpdate.serviceName }}"
+      state: restarted
+      enabled: yes
+
+  - name: Wait for service starting... (from 10 to 300 seconds)
+    wait_for:
+      port: "{{ serviceToUpdate.port }}"
+      delay: 10
+      timeout: 300
+
+  - name: Check if service is started and warmup cache
+    uri:
+      url: "{{ serviceToUpdate.warmupUrl }}"
+      headers: 
+        host: "{{ serviceToUpdate.warmupHost }}"
+
+  - name: Update nginx configuration
+    block:
+      - name: Update server location
+        copy:
+          content: "proxy_pass {{ serviceToUpdate.url }};"
+          dest: "{{ webappServices.nginx.serverLocationConfFile }}"
+      - name: Reload nginx
+        service:
+          name: nginx
+          state: reloaded
+
+  - name: Wait before stopping other service, let already running queries finish (60 seconds)
+    wait_for:
+      timeout: 60
+    when: ansible_facts.services[serviceToStop.serviceName].state == "running"
+
+  - name: Stop other service 
+    service:
+      name: "{{ serviceToStop.serviceName }}"
+      state: stopped
+      enabled: no
+
+  # hooray! we're done now!
+  

@@ -1,0 +1,101 @@
+﻿@font-face {
+    font-family: 'RobotoSlab';
+    src: url('fonts/RobotoSlab-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'RobotoSlab';
+    src: url('fonts/RobotoSlab-Light.ttf') format('truetype');
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: 'RobotoSlab';
+    src: url('fonts/RobotoSlab-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+
+body{
+    background-color: #ffffff00;
+}
+
+.page-break{
+    page-break-after: always;
+    page-break-inside: avoid;
+}
+
+.p-10-mm{
+    padding: 10mm;
+}
+
+.vertical-align-top{
+    vertical-align: top;
+}
+.text-align-justify{
+    text-align: justify;
+}
+.p-0-10-px{
+    padding: 0 10px;
+}
+
+.pre-render {
+    margin: 0 auto;
+    max-width: 210mm;
+    background-color: white;
+    border: 2px solid #d4d7ff;
+    border-radius: 0.25rem;
+    margin-bottom: 10mm;
+}
+
+.pre-render .app-content {
+    font-size: 12pt;
+}
+
+.app-content {
+	margin: 0 auto;
+    padding-bottom: 20mm;
+	max-width: 250mm;
+    font-family: 'RobotoSlab';
+    font-weight: normal;
+    font-color: #000;
+    font-size: 16pt;
+    page-break-after: always;
+    page-break-inside: avoid;
+}
+
+.app-section-item {
+    text-align: justify;
+    text-indent: 30pt;
+    margin-bottom: 0rem;
+}
+
+.font-weight-bold {
+    font-weight: bold !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+br {
+    color: white;
+} 
+
+.wide-table {
+    width: 100%;
+    font-size: inherit;
+}
+
+.table-td-p-10 td {
+    padding: 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.td-border-solid-gray {
+    border: 1px solid #ccc;
+}

@@ -1,0 +1,21 @@
+- debug:
+    var: servicesToCleanUp
+
+- name: Stop and disable service
+  service:
+    name: "{{ item.name }}"
+    state: stopped
+    enabled: no
+  with_items: "{{ servicesToCleanUp }}"
+
+- name: Name remove links
+  file:
+    path: "/etc/systemd/system/{{ item.name }}"
+    state: absent
+  with_items: "{{ servicesToCleanUp }}"
+
+- name: Clean up service folder
+  file:
+    path: "{{ item.appUnpackDir }}"
+    state: absent
+  with_items: "{{ servicesToCleanUp }}"

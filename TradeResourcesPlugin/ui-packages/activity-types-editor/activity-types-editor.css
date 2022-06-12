@@ -1,0 +1,41 @@
+﻿.activity-items {
+	width: 100%;
+}
+
+.activity-items td {
+    border: 1px solid lightgray;
+}
+
+.activity-items td.from, .activity-items td.to {
+	width: 150px;
+}
+
+.activity-items td, .activity-items th {
+	padding: 2px;
+}
+
+.activity-items input {
+	width: 150px;
+}
+
+.activity-items tr.level-1 .caption {
+	padding-left: 25px;
+}
+
+.activity-items input {
+	border: 0;
+}
+.activity-items input:not([readonly]) {
+	background: lavender;
+}
+.activity-items input[readonly] {
+	background: transparent;
+}
+
+.activity-items tr:hover {
+    background: ghostwhite;
+}
+
+.activity-items .error-text {
+	color: #CE0000;
+}

@@ -1,0 +1,22 @@
+- name: Check configuration file provided
+  fail: 
+    msg: "Configuration file wasn't provided. Please provide configuration file via config_file variable"
+  when: config_file is undefined or config_file == ""
+
+- name: Search for configuration file
+  include_vars: "{{ config_file }}"
+  
+- name: Set server configuration facts
+  set_fact: 
+    appService:
+      serviceName: "{{ app.name }}.service"
+      description: "{{ app.description }}"
+      entryDll: "{{ app.appEntryPoint }}"
+      environment: "{{ app.environment }}"
+      vault:
+        serverUrl: "{{ app.vault.serverUrl }}"
+        secretPath: "{{ app.vault.secretPath }}"
+        userName: "{{ app.vault.userName }}"
+        userPassword: "{{ app.vault.userPassword }}"
+      serviceDir: "{{ app.serviceRootDir }}/{{app.name}}"
+      serviceHomeDir: "{{ app.serviceRootDir }}/{{app.name}}/publish"

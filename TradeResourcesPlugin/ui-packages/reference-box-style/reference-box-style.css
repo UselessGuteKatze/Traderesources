@@ -1,0 +1,12 @@
+﻿.form-group .component-title label {
+	width: 25%;
+	padding-right: 15px;
+	padding-left: 15px;
+	float: left;
+}
+
+#flCountry {
+	width: 73%;
+	margin-right: 15px;
+	margin-left: 15px;
+}

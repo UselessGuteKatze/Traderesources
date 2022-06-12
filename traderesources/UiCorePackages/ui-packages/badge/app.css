@@ -1,0 +1,177 @@
+﻿.badge {
+    display: inline-block;
+    margin: 0 7px 3px 0;
+    /* padding: 0.25em 0.4em; */
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    color: #6c6e6f;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #e7eaf2;
+    border-radius: 10px;
+}
+
+a.badge:hover, a.badge:focus {
+    text-decoration: none;
+}
+
+.badge:empty {
+    display: none;
+}
+
+.btn .badge {
+    position: relative;
+    top: -1px;
+}
+
+.badge-pill {
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: #536de6;
+}
+
+a.badge-primary:hover, a.badge-primary:focus {
+    color: #fff;
+    background-color: #2647e0;
+}
+
+a.badge-primary:focus, a.badge-primary.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(83, 109, 230, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(83, 109, 230, 0.5);
+}
+
+.badge-secondary {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+a.badge-secondary:hover, a.badge-secondary:focus {
+    color: #fff;
+    background-color: #545b62;
+}
+
+a.badge-secondary:focus, a.badge-secondary.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #10c469;
+}
+
+a.badge-success:hover, a.badge-success:focus {
+    color: #fff;
+    background-color: #0c9550;
+}
+
+a.badge-success:focus, a.badge-success.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(16, 196, 105, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(16, 196, 105, 0.5);
+}
+
+.badge-info {
+    color: #fff;
+    background-color: #35b8e0;
+}
+
+a.badge-info:hover, a.badge-info:focus {
+    color: #fff;
+    background-color: #1e9dc4;
+}
+
+a.badge-info:focus, a.badge-info.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(53, 184, 224, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(53, 184, 224, 0.5);
+}
+
+.badge-warning {
+    color: #fff;
+    background-color: #f9c851;
+}
+
+a.badge-warning:hover, a.badge-warning:focus {
+    color: #fff;
+    background-color: #f7b820;
+}
+
+a.badge-warning:focus, a.badge-warning.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(249, 200, 81, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(249, 200, 81, 0.5);
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #ff5b5b;
+}
+
+a.badge-danger:hover, a.badge-danger:focus {
+    color: #fff;
+    background-color: #ff2828;
+}
+
+a.badge-danger:focus, a.badge-danger.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 91, 91, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(255, 91, 91, 0.5);
+}
+
+.badge-light {
+    color: #323a46;
+    background-color: #eef2f7;
+}
+
+a.badge-light:hover, a.badge-light:focus {
+    color: #323a46;
+    background-color: #cbd7e7;
+}
+
+a.badge-light:focus, a.badge-light.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(238, 242, 247, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(238, 242, 247, 0.5);
+}
+
+.badge-dark {
+    color: #fff;    
+    background-color: #323a46;
+}
+
+a.badge-dark:hover, a.badge-dark:focus {
+    color: #fff;
+    background-color: #1d2128;
+}
+
+a.badge-dark:focus, a.badge-dark.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(50, 58, 70, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(50, 58, 70, 0.5);
+}

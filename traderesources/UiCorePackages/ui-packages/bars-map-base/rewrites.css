@@ -1,0 +1,65 @@
+﻿.ol-viewport {
+    background-color: #d0e2ff;
+}
+.ol-zoom {
+    top: 8px;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    font-size: 20px !important;
+}
+.ol-control button {
+    background-color: transparent !important;
+    color: rgba(245, 245, 245, 0.85) !important;
+    border-radius: 5px !important;
+    display: inline-block;
+    margin: 1px;
+    padding: 0;
+    color: #fff;
+    font-size: 1.14em;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    height: 1.375em;
+    width: 1.375em;
+    line-height: .4em;
+    border: none;
+}
+.ol-zoom button:focus {
+    background-color: rgba(0,0,0,0) !important;
+}
+.ol-zoom button.active {
+    background-color: rgba(245, 245, 245, 0.2) !important;
+    color: rgba(53, 63, 76, 0.85) !important;
+    border: 0;
+}
+.ol-zoom button:hover {
+    background-color: rgba(245, 245, 245, 0.2) !important;
+}
+
+.gis-choose-layers-panel {
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+    top: 60px;
+    width: 200px;
+    text-align: center;
+}
+
+@media (max-width: 800px) {
+    .ol-zoom {
+        top: 112px;
+        width: 90%;
+        text-align: center;
+    }
+    .mini-map .ol-zoom, :not(:root):fullscreen .ol-zoom {
+        top: 8px;
+    }
+    .gis-choose-layers-panel {
+        top: 166px;
+        width: 90%;
+    }
+    :not(:root):fullscreen .gis-choose-layers-panel {
+        top: 63px;
+    }
+    
+}

@@ -1,0 +1,11 @@
+- name: Install qazcertMITM into trusted certificates
+  include: install-qazcert-playbook.yml
+
+- name: Install serverslan certs into trusted certificates
+  include: install-serverslan-certs-playbook.yml
+
+- hosts: "{{ target }}"
+  pre_tasks:
+    - import_tasks: init-service-vars-tasks.yml
+  roles:
+    - dotnet-core-service

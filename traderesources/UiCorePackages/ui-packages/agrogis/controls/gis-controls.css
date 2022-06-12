@@ -1,0 +1,137 @@
+﻿.gis-map .ol-control {
+    background-color: rgba(200,200,200,.4);
+}
+
+/*.ol-zoom {
+    top: 12.5em;
+    right: .5em;
+    left: auto;
+}*/
+
+.gis-map .ol-control button {
+    background-color: rgba(50,50,50,0.6);
+    width: 2em;
+    height: 2em;
+}
+.gis-map .ol-control button:hover {
+    background-color: rgba(0,0,0,0.4);
+}
+.gis-map .ol-control button:focus {
+    background-color: rgba(0,0,0,0.5);
+}
+.gis-map .ol-scale-line {
+    background: rgba(50,50,50,0.6);
+}
+
+.gis-btn-icon {
+    text-indent: -99999px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn-choose-layer {
+    background-image: url(img/btn-layers.png);
+}
+
+.choose-layers {
+    top: 3.5em;
+    right: .5em;
+}
+
+.gis-choose-layers-panel {
+    top: 4em;
+    right: 4em;
+    display: block;
+    width: 150px;
+    position: absolute;
+    background: rgba(255,255,255,0.9);
+    -webkit-box-shadow: 0px 1px 3px 1px #AFAFAF;
+    -moz-box-shadow: 0px 1px 3px 1px #AFAFAF;
+    box-shadow: 0px 1px 3px 1px #AFAFAF;
+    z-index: 10;
+}
+
+.gis-choose-layer-item {
+    vertical-align: middle;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.gis-choose-layer-item.selected-item {
+    background-color: rgba(100,100,100,0.9);
+    cursor: default;
+    color: white;
+}
+
+.gis-choose-layer-item:not(.selected-item):hover {
+    background-color: rgba(200,200,200,0.5);
+}
+
+.gis-full-screen-control {
+    top: .5em;
+    right: .5em;
+}
+
+.gis-map:-moz-full-screen {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.gis-map:-webkit-full-screen {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.gis-map:-ms-fullscreen {
+    height: 100%;
+    padding: 0;
+}
+
+.gis-map:fullscreen {
+    height: 100%;
+    width:100%;
+    padding:0;
+}
+
+.ndvi-legend {
+    bottom: .5em;
+    right: .5em;
+}
+
+.ndvi-legend-container {
+    background-color: rgba(50,50,50,0.6);
+    padding: 3px;
+}
+
+.ndvi-legend td {
+    font-size: 9px;
+    color: white;
+    padding-left: 2px;
+}
+
+.custom-legend {
+    bottom: .5em;
+    right: 3.5em;
+}
+
+.custom-legend-container {
+    background-color: rgba(50,50,50,0.6);
+    padding: 3px;
+}
+
+.custom-legend td {
+    font-size: .9em;
+    color: white;
+}
+
+.custom-legend .color-mark div {
+    width: 15px;
+    height: 15px;
+}
+
+.custom-legend .color-text {
+    padding-left: 5px;
+    padding-right: 5px;
+}

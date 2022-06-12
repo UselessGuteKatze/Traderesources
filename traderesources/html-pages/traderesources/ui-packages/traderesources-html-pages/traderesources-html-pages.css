@@ -1,0 +1,117 @@
+html {
+    scroll-behavior: smooth;
+}
+
+:target:before {
+    content: "";
+    display: block;
+    height: 100px;
+    margin: -100px 0 0;
+}
+
+
+.img-main {
+    background-color: #394859;
+    background-image: url('images/img-main.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #0a466591 70%), url(images/img-main.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-hydrocarbon {
+    background-color: #394859;
+    background-image: url('images/hydrocarbon.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #db3b1645 70%), url(images/hydrocarbon.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-tpi {
+    background-color: #394859;
+    background-image: url('images/coal.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #13141ec2 70%), url(images/coal.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-common {
+    background-color: #394859;
+    background-image: url('images/mining.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #0719398f 70%), url(images/mining.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-gas {
+    background-color: #394859;
+    background-image: url('images/gas.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #768382c4 70%), url(images/gas.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-land {
+    background-color: #394859;
+    background-image: url('images/img-land.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #164b5533 70%), url(images/img-land.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-forest {
+    background-color: #394859;
+    background-image: url('images/forest.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #164b5533 70%), url(images/forest.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-animal {
+    background-color: #394859;
+    background-image: url('images/animals.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #17281799 70%), url(images/animals.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.img-radio {
+    background-color: #394859;
+    background-image: url('images/radio.jpg');
+    background-image: linear-gradient( 90deg, #2a2e3300 30%, #29547f70 70%), url(images/radio.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+
+
+.devmod-page {
+    height: 500px;
+}
+
+
+.devmod-page-img {
+    background-image: url(images/devmod.svg);
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 500px;
+}
+
+.infpage-image-blackbox {
+    /* background-image: linear-gradient(60deg, #2a2e3399 0%, #373f48d6 100%); */
+    background-color: #313a46ba;
+    border-radius: 0.25rem;
+    min-height: 250px;
+}

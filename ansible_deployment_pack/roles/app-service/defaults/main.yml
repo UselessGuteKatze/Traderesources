@@ -1,0 +1,12 @@
+---
+appName:
+appDescription:
+appEntryPoint:
+appEnvironment:
+vault:
+  serverUrl:
+  secretPath:
+  userName:
+  userPassword:
+appRootDir:
+

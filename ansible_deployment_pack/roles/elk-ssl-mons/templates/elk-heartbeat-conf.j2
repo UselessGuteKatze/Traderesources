@@ -1,0 +1,11 @@
+- type: http
+  name: {{ proxyName }} Status
+  service.name: {{ description }}
+  urls: [ {% for host in acceptingHost %}"https://{{host}}",{% endfor %} ]
+  schedule: '@every 5m'
+  check.response.status: [200,301,302,404]
+  {% if NAME_SPACE is defined %}
+tags: ["{{ NAME_SPACE }}-{{ APP_ENVIRONMENT }}"]
+  {% else %}
+tags: ["{{ APP_ENVIRONMENT }}"]
+  {% endif %}

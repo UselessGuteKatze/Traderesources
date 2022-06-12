@@ -1,0 +1,25 @@
+---
+appName:
+appDescription:
+appEntryPoint:
+appEnvironment:
+acceptingHost: 
+vault: 
+  serverUrl:
+  secretPath:
+  userName:
+  userPassword:
+sslCertificate:
+  pub:
+  key: 
+appRootDir:
+warmupPath:
+warmupHost:
+localhostPort: 
+worldPort: 
+forceUpdateServiceNumber:
+deployArtifactsPath:
+initWebServer: false
+deployApp: false
+
+appAdditionalEnvironmentVars:

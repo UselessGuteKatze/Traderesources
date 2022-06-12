@@ -1,0 +1,92 @@
+- name: elk-journalbeat
+  vars:
+    journalbeatAppName: "{{ journalbeatAppName }}"
+  block:
+    - name: Init elk aq
+      block:
+        - name: Add GPG-KEY-elasticsearch Centos
+          rpm_key:
+            state: present
+            key: https://nexus.aq.servers.lan:8443/repository/proxy-all/GPG-KEY-elasticsearch
+          when: ansible_os_family=="RedHat"
+
+        - name: Add GPG-KEY-elasticsearch UBUNTU
+          apt_key:
+            state: present
+            url: https://nexus.aq.servers.lan:8443/repository/proxy-all/GPG-KEY-elasticsearch
+          when: ansible_os_family=="Debian"
+
+        - name: Add elk repo Centos
+          template:
+            src: elk.repo.aq.j2
+            dest: /etc/yum.repos.d/elk.repo
+          when: ansible_os_family=="RedHat"
+
+        - name: Add elk repo UBUNTU
+          template:
+            src: elk-apt.repo.j2
+            dest: /etc/apt/sources.list.d/elk-apt.list
+          when: ansible_os_family=="Debian"
+
+        - name: install journalbeat Centos
+          yum:
+            name:
+              - journalbeat
+            state: latest
+            enablerepo: elk
+          when: ansible_os_family=="RedHat"
+
+        - name: install journalbeat UBUNTU
+          apt:
+            name:
+              - journalbeat
+            state: latest
+            update_cache: yes
+          when: ansible_os_family=="Debian"
+
+        - name: Configure journalbeat
+          replace:
+            path: /etc/journalbeat/journalbeat.yml
+            regexp: "{{item.1}}"
+            replace: "{{item.2}}"
+            backup: yes
+          with_items:
+          - { 1: '^(output\.elasticsearch\:)$', 2: '#output.elasticsearch:' }
+          - { 1: '^(\s\shosts\:\s\[\"localhost\:9200\"\])$', 2: '  #hosts: ["localhost:9200"]' }
+          - { 1: '^(\#output\.logstash\:)$', 2: 'output.logstash:' }
+          - { 1: '^(\s\s\#hosts\:\s\[\"localhost\:5044\"\])$', 2: '  hosts: ["elk-cluster-node1.aq.servers.lan:5044","elk-cluster-node2.aq.servers.lan:5044","elk-cluster-node3.dc.servers.lan:5044"]' }
+          - { 1: '^(\s\s\#include\_matches\:\s\[\])$', 2: '  include_matches:' }
+
+        - name: Configure journalbeat CENTOS
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: '^\output\.logstash\:'
+          with_items:
+            - '  loadbalance: true'
+          when: ansible_os_family=="RedHat"
+
+        - name: Configure journalbeat UBUNTU
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: 'output.logstash:'
+          with_items:
+            - '  loadbalance: true'
+          when: ansible_os_family=="Debian"
+
+        - name: "Configure service {{ journalbeatAppName }} to monitoring"
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: '^\s\sinclude\_matches\:'
+          with_items:
+            - '   - "systemd.unit={{ journalbeatAppName }}.service"'
+
+        - name: Restart service journalbeat
+          systemd:
+            name: journalbeat
+            state: restarted
+            enabled: yes
+
+    

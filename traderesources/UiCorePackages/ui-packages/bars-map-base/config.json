@@ -1,0 +1,11 @@
+﻿{
+  "require": [
+    "ol6",
+    "c3",
+    "map-default-config",
+    "agrogis-ui-common",
+    "agrogis.controls",
+    "kz-border",
+    "map-interface-restruct"
+  ]
+}

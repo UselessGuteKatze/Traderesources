@@ -1,0 +1,44 @@
+- name: web application
+  hosts: webapp
+  roles:
+  - role: latest-yum-packages
+    when: COMMAND == "INIT_WEB_SERVER"
+  - role: dotnet
+    vars:
+      dotnet_package: aspnetcore-runtime-6.0
+    when: COMMAND == "INIT_WEB_SERVER"
+  
+  - role: java
+    when: "ansible_os_family == 'RedHat'"
+    java_packages:
+      - java-1.8.0-openjdk  
+
+  - role: web-app-service
+    vars:
+      appName: traderesources
+      appDescription: Торги по недропользованию
+      appEntryPoint: bin/netcoreapp3.1/traderesources.dll
+      appEnvironment: "{{ APP_ENVIRONMENT }}"
+      acceptingHost:
+        - "{{DOMAIN_PREFIX|default('')}}traderesources.gosreestr.kz"
+        - "{{DOMAIN_PREFIX|default('')}}cabinet-resource-seller.gosreestr.kz"
+        - "{{DOMAIN_PREFIX|default('')}}cabinet-resource-user.gosreestr.kz"
+      vault: 
+        serverUrl: https://vault.servers.lan
+        secretPath: "{{WEB_APP_VAULT_SECRET_PATH}}"
+        userName: "{{WEB_APP_VAULT_USER}}"
+        userPassword: "{{WEB_APP_VAULT_PWD}}"
+      sslCertificate:
+        pub: "{{ WEB_SSL_CERTIFICATE_PUB }}"
+        key: "{{ WEB_SSL_CERTIFICATE_KEY }}"
+      appRootDir: /web
+      warmupPath: ru
+      warmupHost: "{{DOMAIN_PREFIX|default('')}}traderesources.gosreestr.kz"
+      localhostPort: 27553
+      worldPort: 443
+      forceUpdateServiceNumber: "{{ WEB_UPDATE_SERVICE_NUMBER|default(-1)|int }}"
+      deployArtifactsPath: "{{ CI_PROJECT_DIR }}/deploy_pack/web/deploy.zip"
+      initWebServer: "{{ COMMAND == 'INIT_WEB_SERVER' }}"
+      deployApp: "{{ COMMAND == 'DEPLOY_WEB_APP' }}"
+      appAdditionalEnvironmentVars: 
+    when: COMMAND == "INIT_WEB_SERVER" or COMMAND == "DEPLOY_WEB_APP"

@@ -1,0 +1,60 @@
+- hosts: "{{ target }}"
+  pre_tasks:
+    - import_tasks: init-service-vars-tasks.yml
+
+  tasks:
+  - name: Set service to update fact
+    set_fact:
+        serviceToUpdate: "{{ appService }}"
+
+  - name: Transfer artifacts from localhost
+    copy:
+      src: "{{ app.deployArtifactsPath }}"
+      dest: "{{ app.serviceRootDir }}/artifacts.zip"
+      backup: yes
+
+  - name: Stop updating service if it's running
+    service:
+      name: "{{ serviceToUpdate.serviceName }}"
+      state: stopped
+      enabled: no
+
+  - name: Wait for service stopping (5 seconds)
+    wait_for:
+      timeout: 5
+
+  - name: Clear previous artifacts files and directories
+    file:
+      state: "{{ item }}"
+      path: "{{ serviceToUpdate.serviceDir }}"
+      owner: devops
+      group: devops
+      mode: '0777'
+    with_items:
+      - absent
+      - directory
+
+  - name: Ensure unzip installed
+    package:
+      name: unzip
+      state: present
+    
+  - name: Unarchieve artifacts
+    unarchive:
+      src: "{{ app.serviceRootDir }}/artifacts.zip"
+      dest: "{{ serviceToUpdate.serviceDir }}"
+      remote_src: yes
+      owner: devops
+      group: devops
+
+
+  - name: Start updating service
+    service:
+      name: "{{ serviceToUpdate.serviceName }}"
+      state: restarted
+      enabled: yes
+
+  # TODO check for service working correctly
+
+  # hooray! we're done now!
+  

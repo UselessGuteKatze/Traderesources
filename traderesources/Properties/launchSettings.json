@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Yoda Development": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:27553/"
+    },
+    "Yoda Gen Migration": {
+      "commandName": "Project",
+      "commandLineArgs": "--gen-migrations true",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

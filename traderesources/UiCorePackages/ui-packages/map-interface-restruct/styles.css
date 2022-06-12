@@ -1,0 +1,197 @@
+body {
+    background-color: rgb(53, 63, 76);
+    overflow: hidden;
+}
+.body-load {
+    background-image: url(images/loader.svg);
+    background-repeat: no-repeat;
+    background-size: 128px 128px;
+    background-position: center center;
+}
+.widget-base {
+    border-radius: 5px;
+    box-shadow: 1px 0px 10px 2px rgba(32, 38, 45, 0.95)
+}
+.widget-main {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-repeat: no-repeat;
+    width: 16.5%;
+    min-width: 288px;
+    height: 96px;
+}
+.widget-part-logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 64px;
+    height: 64px;
+    background-color: rgba(245, 245, 245, 0.85);
+    border-radius: 5px 0 0 0;
+}
+.widget-part-logo img {
+    padding: 0;
+    margin: 0;
+    width: 228px;
+    height: 64px;
+}
+.widget-part-language {
+    background-color: rgba(245, 245, 245, 0.85);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 5px 0 0;
+}
+.widget-part-language select {
+    width: 56px;
+    padding: 3px;
+    cursor: pointer;
+    background: transparent;
+    color: rgba(53, 63, 76, 0.85);
+}
+.widget-part-account {
+    background-color: rgba(53, 63, 76, 0.85);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 64px;
+    height: 32px;
+    border-radius: 0 0 5px 5px;
+    font-size: 11px;
+    border-left: 1px rgba(56, 58, 62, 0.85) solid;
+    border-right: 1px rgba(56, 58, 62, 0.85) solid;
+    border-bottom: 1px rgba(56, 58, 62, 0.85) solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245, 245, 245, 0.85);
+}
+.widget-part-menu {
+    width: 32px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+}
+.widget-part-menu i {
+    font-size: 21px;
+    cursor: pointer;
+}
+.widget-part-account-info {
+    position: absolute;
+    left: 32px;
+    right: 0;
+    text-align: center;
+}
+.widget-menu-main {
+    position: absolute;
+    top: 113px;
+    left: 8px;
+    background-color: rgba(245, 245, 245, 0.85);
+    width: 16.5%;
+    min-width: 288px;
+    overflow-y: scroll;
+    bottom: 39px;
+}
+.widget-menu-main::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+}
+.widget-menu-main::-webkit-scrollbar {
+    width: 5px;
+}
+.widget-menu-main::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+}
+
+.widget-menu-user {
+    position: absolute;
+    top: 113px;
+    left: 8px;
+    background-color: rgba(245, 245, 245, 0.85);
+    width: 16.5%;
+    min-width: 288px;
+}
+.sidebar-menu {
+    border-radius: 5px;
+    background: transparent !important;
+    padding-bottom: 5px !important;
+    display: block !important;
+}
+.sidebar-menu li ul {
+    background: transparent !important;
+    border-left: 5px solid rgba(53, 63, 76, 0.85) !important;
+}
+.sidebar-menu li a {
+    color: rgba(53, 63, 76, 0.85) !important;
+}
+.sidebar-menu li a:hover {
+    text-shadow: 1px 1px 2px rgb(107, 129, 154);
+}
+.sidebar-menu li .active {
+    text-shadow: 1px 1px 2px rgb(107, 129, 154);
+}
+.widget-copyright {
+    position: absolute;
+    z-index: 1;
+    bottom: 8px;
+    right: 8px;
+    height: 30px;
+    width: 100px;
+    background-image: url(images/qoldau.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100px 30px;
+}
+.widget-copyright a {
+    color: #000;
+    opacity: 2;
+    cursor:pointer;
+}
+.widget-defaults {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    background-color: rgba(53, 63, 76, 0.85) !important;
+    color: rgba(245, 245, 245, 0.85);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+@media (max-width: 800px) {
+    .widget-main {
+        top: 8px;
+        left: 50%;
+        transform: translate(-50%, 0px);
+        width: 90%;
+    }
+    .widget-menu-main {
+        top: 175px;
+        width: 90%;
+        left: 50%;
+        transform: translate(-50%, 0px);
+    }
+    .widget-menu-user {
+        top: 175px;
+        width: 90%;
+        left: 50%;
+        transform: translate(-50%, 0px);
+    }
+}
+
+:not(:root):fullscreen .widget-main {
+    display: none !important;
+}
+
+.lang-menu {
+    padding: 0;
+}
+.lang-dropdown {
+    background: rgb(219, 219, 220);
+    box-shadow: 1px 0px 10px 2px rgba(32, 38, 45, 0.5);
+}

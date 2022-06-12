@@ -1,0 +1,4 @@
+﻿//https://c3js.org/samples/timeseries.html
+{
+  "require": [ "d3" ]
+}

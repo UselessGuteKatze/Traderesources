@@ -1,0 +1,30 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+
+#setup.dashboards.enabled: true
+#setup.kibana:
+  #host: "elk-cluster-kibana.aq.servers.lan:5660"
+  #protocol: "https"
+  #username: "${MK_USR}"
+  #password: "${MK_PWD}"
+
+#output.elasticsearch:
+  #hosts: ["elk-cluster-node2.aq.servers.lan:9122","elk-cluster-node1.aq.servers.lan:9122","elk-cluster-node3.dc.servers.lan:9122"]
+  #protocol: "https"
+  #username: "${MK_USR}"
+  #password: "${MK_PWD}"
+
+output.logstash:
+  hosts: ["elk-cluster-node1.aq.servers.lan:5044","elk-cluster-node2.aq.servers.lan:5044","elk-cluster-node3.dc.servers.lan:5044"]
+  loadbalance: true
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~

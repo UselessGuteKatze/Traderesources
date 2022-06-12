@@ -1,0 +1,42 @@
+﻿.bordered-table {
+    font-size: 10px;
+    font-family: 'times';
+}
+
+.title {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'times';
+}
+
+.app-section-item {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'times';
+}
+
+.next {
+    font-size: 12px;
+    font-family: 'times';
+}
+
+.verification-title {
+    text-align: center !important;
+    padding: 30px 0 15px 0 !important;
+}
+
+.base-title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 12pt;
+    padding: 16px 0px 16px 16px;
+    font-family: 'times';
+}
+
+.app-content-wrapper {
+    /*max-width: 1200px;*/
+    border: 1px solid lightgray;
+    padding: 30px;
+    overflow: hidden;
+    background-color: white;
+}

@@ -1,0 +1,45 @@
+﻿@model Yoda.Application.UserDdosCheckArgs
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Проверка браузера</title>
+    <script src="@Url.Content("~/Scripts/core/jquery-1.8.2.min.js")" type="text/javascript"></script>
+    <style type="text/css">
+        
+    </style>
+</head>
+<body style="height:100%;display:table;margin:0 auto;">
+        
+
+        <div style="height:100%; display: table-cell;vertical-align: middle;text-align: center">
+            <div  style="height:200px;  width:800px;">
+                <div style="font-weight: bold; font-size: 30px; color:cornflowerblue">Проверка браузера...</div>
+                <div style="font-size: 14px; color:cornflowerblue">Сейчас Вы перейдете на страницу проекта.</div>
+            </div>
+        </div>
+
+
+        @{
+            var condition = Model.Condition;
+            var answer = Model.Answer;
+        }
+
+        <form id="ChallengeForm" action="/p" method="POST" style="display: none">
+            <input type="hidden" name="condition" value="@condition"/>
+            <input type="hidden" id="answer" name="answer"/>
+        </form>
+
+        <script type="text/javascript">
+            $('#challenge').show();
+            $(function() {
+                setTimeout(
+                    function() {
+                        $('#answer').val('@answer');
+                        $('#ChallengeForm').submit();
+                    },
+                    5850
+            );
+            });
+        </script>
+</body>
+</html>

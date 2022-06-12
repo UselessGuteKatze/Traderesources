@@ -1,0 +1,12 @@
+- hosts: "{{ target }}"
+  tasks:
+  - name: "Install servers.lan certificates"
+    template:
+      src: templates/{{ item }}
+      dest: /etc/pki/ca-trust/source/anchors/{{ item }}
+    with_items:
+      - iac-root-ca.crt
+      - iac-root-intermediate.crt
+
+  - name: Update ca certificate
+    command: update-ca-trust

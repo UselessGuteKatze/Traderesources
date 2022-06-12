@@ -1,0 +1,4 @@
+- name: Configure modules
+  shell: |
+    metricbeat modules enable nginx
+    metricbeat keystore create

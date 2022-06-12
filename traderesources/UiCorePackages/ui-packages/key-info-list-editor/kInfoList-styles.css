@@ -1,0 +1,60 @@
+﻿.kInfoList-editor {
+    width: 100%;
+}
+.kInfoList-add-button {
+    /*background-color: darkgray;
+    color: white;
+    text-decoration: none;
+    min-width: 100px !important;
+    text-align: center;
+    margin: 1px;
+    color: #fff;
+    vertical-align: middle;
+    padding-top: 6px;
+    height: 32px;
+    cursor: pointer;
+    display: block;
+    width: 120px;
+    float: left;*/
+}
+.kInfoList-remove-button {
+    background-image: url(rmv.png);
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    text-indent: -100000px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.kInfoList-content-cell {
+    color: black;
+    border: 1px solid white;
+    background: #f7f7f7;
+    padding-left: 10px !important;
+}
+.kInfoList-action-cell {
+    color: black;
+    border: 1px solid white;
+    background: #f7f7f7;
+}
+.kInfoList-title-cell {
+    color: white;
+    text-align: center;
+    background: darkgray;
+    border: 1px solid white;
+    font-weight: normal;
+    padding: 5px;
+}
+.kInfoList-container  {
+    width: 100%;
+}
+.kInfoList-container td {
+    padding: 5px;
+}
+.kInfoList-column-actions {
+    width: 36px;
+    color: white;
+    text-align: center;
+    background: darkgray;
+    border: 1px solid white;
+}

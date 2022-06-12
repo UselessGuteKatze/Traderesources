@@ -1,0 +1,265 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<AppendConfigurationToOutputPath>false</AppendConfigurationToOutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>..\traderesources\Plugins\TradeResourcesPlugin</OutputPath>
+	</PropertyGroup>
+	
+  <ItemGroup>
+    <Compile Remove="Modules\Registers\**" />
+    <EmbeddedResource Remove="Modules\Registers\**" />
+    <None Remove="Modules\Registers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="config.plugin" />
+    <None Remove="ui-packages\activity-types-editor\activity-types-editor.css" />
+    <None Remove="ui-packages\activity-types-editor\activity-types-editor.js" />
+    <None Remove="ui-packages\activity-types-editor\config.json" />
+    <None Remove="ui-packages\base-list-editor\base-list-editor.js" />
+    <None Remove="ui-packages\base-list-editor\config.json" />
+    <None Remove="ui-packages\check-boxes-box\check-boxes-box.css" />
+    <None Remove="ui-packages\check-boxes-box\check-boxes-box.js" />
+    <None Remove="ui-packages\check-boxes-box\config.json" />
+    <None Remove="ui-packages\comission-gbd-caller-package\config.json" />
+    <None Remove="ui-packages\comission-gbdfl-caller-package\config.json" />
+    <None Remove="ui-packages\comission-gbdfl-caller-package\person-data-request.js" />
+    <None Remove="ui-packages\default-doc-package\app-content.css" />
+    <None Remove="ui-packages\default-doc-package\app-header.css" />
+    <None Remove="ui-packages\default-doc-package\config.json" />
+    <None Remove="ui-packages\default-doc-package\fonts\RobotoSlab-Bold.ttf" />
+    <None Remove="ui-packages\default-doc-package\fonts\RobotoSlab-Light.ttf" />
+    <None Remove="ui-packages\default-doc-package\fonts\RobotoSlab-Regular.ttf" />
+    <None Remove="ui-packages\default-doc-package\fonts\RobotoSlab-Thin.ttf" />
+    <None Remove="ui-packages\electronic-agreements-print-data\config.json" />
+    <None Remove="ui-packages\electronic-agreements-print-data\styles.css" />
+    <None Remove="ui-packages\gr-object-search-collection-with-btns\config.json" />
+    <None Remove="ui-packages\gr-object-search-collection-with-btns\editor.css" />
+    <None Remove="ui-packages\gr-object-search-collection-with-btns\editor.js" />
+    <None Remove="ui-packages\object-draw-by-coords\config.json" />
+    <None Remove="ui-packages\object-draw-by-coords\coordEdit.js" />
+    <None Remove="ui-packages\object-draw-by-coords\style.css" />
+    <None Remove="ui-packages\object-coords-viewer\config.json" />
+    <None Remove="ui-packages\object-coords-viewer\style.css" />
+    <None Remove="ui-packages\object-coords-viewer\viewer.js" />
+    <None Remove="ui-packages\object-geometry-viewer\config.json" />
+    <None Remove="ui-packages\object-geometry-viewer\extentions.css" />
+    <None Remove="ui-packages\object-geometry-viewer\extentions.js" />
+    <None Remove="ui-packages\object-geometry-viewer\style.css" />
+    <None Remove="ui-packages\object-geometry-viewer\viewer.js" />
+    <None Remove="ui-packages\objects-package\config.json" />
+    <None Remove="ui-packages\objects-package\exceptions-toggle-script.js" />
+    <None Remove="ui-packages\payments-choose-counter\config.json" />
+    <None Remove="ui-packages\payments-choose-counter\payments-choose-counter.css" />
+    <None Remove="ui-packages\payments-choose-counter\payments-choose-counter.js" />
+    <None Remove="ui-packages\subsidies-application-pdf-v2\app-pdf.css" />
+    <None Remove="ui-packages\subsidies-application-pdf-v2\config.json" />
+    <None Remove="ui-packages\subsidies-application-pdf-v2\images\report-cert.svg" />
+    <None Remove="ui-packages\subsidies-application-pdf-v2\images\report-logo.svg" />
+    <None Remove="ui-packages\subsidies-application-pdf-v2\images\report-qr.svg" />
+    <None Remove="ui-packages\text-list-editor-package\config.json" />
+    <None Remove="ui-packages\text-list-editor-package\text-list-editor.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config.plugin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\activity-types-editor\activity-types-editor.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\activity-types-editor\activity-types-editor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\activity-types-editor\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\base-list-editor\base-list-editor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\base-list-editor\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\check-boxes-box\check-boxes-box.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\check-boxes-box\check-boxes-box.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\check-boxes-box\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\comission-gbd-caller-package\config.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\comission-gbdfl-caller-package\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\comission-gbdfl-caller-package\person-data-request.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\app-header.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\fonts\RobotoSlab-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\fonts\RobotoSlab-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\fonts\RobotoSlab-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\fonts\RobotoSlab-Thin.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\default-doc-package\app-content.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\electronic-agreements-print-data\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\electronic-agreements-print-data\styles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\gr-object-search-collection-with-btns\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\gr-object-search-collection-with-btns\editor.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\gr-object-search-collection-with-btns\editor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-draw-by-coords\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-draw-by-coords\coordEdit.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-draw-by-coords\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-coords-viewer\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-coords-viewer\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-coords-viewer\viewer.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-geometry-viewer\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-geometry-viewer\extentions.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-geometry-viewer\extentions.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-geometry-viewer\viewer.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\object-geometry-viewer\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\objects-package\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\objects-package\exceptions-toggle-script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\payments-choose-counter\payments-choose-counter.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\payments-choose-counter\payments-choose-counter.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\payments-choose-counter\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\subsidies-application-pdf-v2\app-pdf.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\subsidies-application-pdf-v2\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\subsidies-application-pdf-v2\images\report-cert.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\subsidies-application-pdf-v2\images\report-logo.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\subsidies-application-pdf-v2\images\report-qr.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\text-list-editor-package\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ui-packages\text-list-editor-package\text-list-editor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonIntegrations" Version="1.0.13" />
+    <PackageReference Include="EPPlus" Version="6.0.3" />
+    <PackageReference Include="PaymentsApi.Client" Version="1.1.3" />
+    <PackageReference Include="PuppeteerSharp" Version="7.0.0" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="randomColorSharped.NetStandard" Version="1.0.2" />
+    <PackageReference Include="Yoda.Analytics" Version="1.0.0" />
+    <PackageReference Include="YodaApp" Version="6.0.33" />
+    <PackageReference Include="YodaCoreplugin" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CommonSource">
+      <HintPath>..\Sources\CommonSource\CommonSource.dll</HintPath>
+    </Reference>
+    <Reference Include="FishingSource">
+      <HintPath>..\Sources\FishingSource\FishingSource.dll</HintPath>
+    </Reference>
+    <Reference Include="ForestSource">
+      <HintPath>..\Sources\ForestSource\ForestSource.dll</HintPath>
+    </Reference>
+    <Reference Include="HuntingSource">
+      <HintPath>..\Sources\HuntSource\HuntingSource.dll</HintPath>
+    </Reference>
+    <Reference Include="HydrocarbonSource">
+      <HintPath>..\Sources\HydrocarbonSource\HydrocarbonSource.dll</HintPath>
+    </Reference>
+    <Reference Include="LandSource">
+      <HintPath>..\Sources\LandSource\LandSource.dll</HintPath>
+    </Reference>
+    <Reference Include="TelecomOperatorsSource">
+      <HintPath>..\Sources\TelecomOperatorsSource\TelecomOperatorsSource.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ui-packages\reference-box-style\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ui-packages\reference-box-style\reference-box-style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'CoreCompat.System.Drawing'">
+        <Aliases>CoreCompatSystemDrawing</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+
+</Project>

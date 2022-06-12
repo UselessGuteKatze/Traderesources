@@ -1,0 +1,75 @@
+﻿.reg-page-bg {
+    background-image: url(./images/reg-page-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.avatar-default {
+    background-image: url(images/avatar-default.jpg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+
+.menu-logo {
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    background-size: 200px;
+    width: 260px;
+    height: 70px;
+    background-color: rgb(255 255 255 / 10%);
+}
+
+.menu-logo-sm {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    background-size: 35px;
+    width: 70px;
+    height: 70px;
+}
+
+
+
+/*------------------------------------------------------------------  traderesources  */
+
+.project-traderesources .logo-light-full {
+    background-image: url(logo/traderesources/logo-light.svg);
+}
+
+.project-traderesources .logo-light-small {
+    background-image: url(logo/traderesources/logo-light-sm.svg);
+}
+
+.project-traderesources .logo-dark-full {
+    background-image: url(logo/traderesources/logo-dark.svg);
+}
+
+project-traderesources .logo-dark-small {
+    background-image: url(logo/traderesources/logo-dark-sm.svg);
+}
+
+
+/*------------------------------------------------------------------  cabinetResourceSeller  */
+
+.project-cabinetresourceseller .logo-light-full {
+    background-image: url(logo/traderesources/logo-light.svg);
+}
+
+.project-cabinetresourceseller .logo-light-small {
+    background-image: url(logo/traderesources/logo-light-sm.svg);
+}
+
+.project-cabinetresourceseller .logo-dark-full {
+    background-image: url(logo/traderesources/logo-dark.svg);
+}
+
+project-cabinetresourceseller .logo-dark-small {
+    background-image: url(logo/traderesources/logo-dark-sm.svg);
+}

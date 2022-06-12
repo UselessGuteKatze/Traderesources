@@ -1,0 +1,31 @@
+- name: "Install servers.lan certificates"
+  template:
+    src: templates/{{ item }}
+    dest: /etc/pki/ca-trust/source/anchors/{{ item }}
+  with_items:
+    - iac-root-ca.crt
+    - iac-root-intermediate.crt
+  when: ansible_os_family=="RedHat"
+
+- name: Update ca certificate
+  command: update-ca-trust
+  when: ansible_os_family=="RedHat"
+
+- name: Create extra folder (Ubuntu)
+  file:
+    state: directory
+    path: /usr/share/ca-certificates/extra
+  when: ansible_os_family=="Debian"
+ 
+- name: "Install servers.lan certificates  (Ubuntu)"
+  template:
+    src: templates/{{ item }}
+    dest: /usr/share/ca-certificates/extra/{{ item }}
+  with_items:
+    - iac-root-ca.crt
+    - iac-root-intermediate.crt
+  when: ansible_os_family=="Debian"
+
+- name: Update ca certificate (Ubuntu)
+  command: update-ca-certificates
+  when: ansible_os_family=="Debian"

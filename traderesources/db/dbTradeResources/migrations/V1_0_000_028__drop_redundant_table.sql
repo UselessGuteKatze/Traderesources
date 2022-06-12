@@ -1,0 +1,1 @@
+drop table users.tbusercorpdata_missing;

@@ -1,0 +1,41 @@
+﻿.agreement-termination, .kz-ver, .ru-ver {
+    font-family: 'Times', serif;
+}
+.ru-ver {
+    float: right;
+    width: 49%;
+    font-family: 'Times', serif;
+    padding: 20px 0 60px 0;
+}
+.kz-ver {
+    float: left;
+    width: 49%;
+    font-family: 'Times', serif;
+    padding: 20px 0 60px 0;
+}
+.t-bold {
+    font-weight: bold;
+    font-family: 'Times', serif;
+}
+.title {
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Times', serif;
+}
+.t-indent {
+    text-indent: 20px;
+    text-align: justify;
+}
+.official-name {
+    padding-top: 20px;
+    font-family: 'Times', serif;
+}
+.meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Times', serif;
+}
+.meta span {
+    padding: 20px 0 20px 0;
+    font-family: 'Times', serif;
+}

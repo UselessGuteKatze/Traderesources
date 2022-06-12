@@ -1,0 +1,3 @@
+﻿{ 
+	"require": ["jquery.core", "ol6", "map-default-config"]
+}

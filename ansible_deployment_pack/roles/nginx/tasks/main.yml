@@ -1,0 +1,20 @@
+# Nurzhas prod
+#- name: Enable nginx repo.
+#  template:
+#    src: templates/nginx.repo.j2
+#    dest: /etc/yum.repos.d/nginx.repo
+#    owner: root
+#    group: wheel
+#    mode: 0644
+
+- name: Ensure EPEL is enabled 
+  yum: 
+    name: epel-release 
+    state: present
+  when: ansible_os_family=="RedHat"
+
+- name: Ensure nginx is installed.
+  package:
+    name: nginx
+    state: present
+  #become_user: root

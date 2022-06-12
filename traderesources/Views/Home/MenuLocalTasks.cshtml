@@ -1,0 +1,39 @@
+﻿@using Yoda.Interfaces
+@model Yoda.Application.Models.LocalTaskAreaElements
+@if (Model == null || Model.MenuLocalTasks.Length == 0)
+{
+    return;
+}
+
+@{
+    foreach (var localTasks in Model.MenuLocalTasks)
+    {
+        var enabledLocalTasks = localTasks.Where(x => x.MenuItem.NativeMenuLink.EnabledFunc(Model.RequestContext)).ToArray();
+        if (enabledLocalTasks.Length == 0)
+        {
+            return;
+        }
+        <ul class="nav nav-tabs nav-bordered mb-3">
+            @foreach (var task in enabledLocalTasks)
+            {
+                var menu = task.MenuItem.NativeMenuLink;
+                var activeClass = task.IsActive ? "active shadow-sm" : string.Empty;
+                var url = Html.YodaAction(task.MenuItem.ModuleName, menu.Name, menu.RawQueryDefaultParams);
+                var badge = menu.MenuBadge?.Invoke(Model.RequestContext);
+                <li class="nav-item">
+                    <a href="@url" aria-expanded="false" class="nav-link @activeClass">
+                        @*<i class="mdi mdi-home-variant d-md-none"></i>*@
+
+                        <span class="d-md-block">
+                            @menu.GetLinkText(Model.RequestContext)
+                            @if (badge != null)
+                            {
+                                <span class="badge badge-@badge.ContextualColor.ToString().ToLower() ml-1">@badge.Text</span>
+                            }
+                        </span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+}

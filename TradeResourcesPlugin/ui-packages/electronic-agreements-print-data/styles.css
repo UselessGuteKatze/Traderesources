@@ -1,0 +1,134 @@
+﻿
+.agreement-part {
+    font-size:13px;
+}
+
+.agreement-part-left {
+  
+}
+
+.header-top {
+    position: relative;
+    background: #222;
+    color: #fff;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left:10px;
+    text-align:left;
+    border-radius: 5px 5px 0 0;
+    font-size: 12px;
+}
+
+.header-center {
+    position: relative;
+    min-height: 70px;
+    background: #A70E0E;
+    color: #fff;
+    text-align: left;
+    padding-left: 120px;
+    font-size: 10pt;
+}
+
+.logo-png {
+    position: absolute;
+    left: 13px;
+    top: -8px;
+    bottom: 10px;
+}
+
+.header-subtitle {
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: bold;
+}
+
+.header-bottom {
+    position: relative;
+    min-height: 115px;
+    background: #efefef;
+    color: #000;
+    text-align: left;
+    padding-left: 120px;
+    padding-top:10px;
+    border-radius: 0 0 5px 5px;
+    margin-bottom:20px;
+}
+.qr-png {
+    position: absolute;
+    left: 10px;
+    top: 50 %;
+    transform: translateY(-50 %);
+    padding:2px;
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.qr-png img {
+    width: 143px;
+    height: 143px;
+}
+
+.doc-check-link {
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+.doc-details {
+    float: left;
+    font-size: 13px;
+    line-height:14px;
+}
+
+.agreement-title {
+    padding-bottom: 10px;
+    text-align: center !important;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.agreement-object-info {
+    padding-bottom: 10px;
+    text-align: left !important;
+    font-weight: bold;
+}
+
+.agreement-add-info {
+    padding-bottom: 30px;
+    font-weight: bold;
+}
+
+.agreement-city {
+    float: left;
+}
+
+.agreement-part > .agreement-content-texts {    
+    text-align: justify;
+}
+
+.agreement-part > div > span {    
+}
+
+.agreement-date {
+    float: right;
+}
+
+.agreement-intro-summary {
+    padding-bottom: 10px;
+    text-align: justify;
+}
+
+.agreement-content-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+p {
+    text-indent: 30px;
+    margin: 0;
+    font-size: 14px;
+}

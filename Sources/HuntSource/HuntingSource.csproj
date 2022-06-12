@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonIntegrations" Version="1.0.13" />
+    <PackageReference Include="YodaApp" Version="6.0.33" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CommonSource">
+      <HintPath>..\CommonSource\CommonSource.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

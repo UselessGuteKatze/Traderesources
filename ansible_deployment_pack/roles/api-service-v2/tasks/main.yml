@@ -1,0 +1,127 @@
+- name: api service init
+  vars:
+    appService:
+      serviceName: "{{ appName }}.service"
+      description: "{{ description }}"
+      entryDll: "{{ entryDll }}"
+      environment: "{{ appEnvironment }}"
+      serviceDir: "{{ appUnpackDir }}"
+      listenUrl: "{{ listenUrl }}"
+      bindPort: "{{ bindPort }}"
+      configurationFile: "{{ configurationFile }}"
+      workingDirectory: "{{ workingDirectory }}"
+      projectArtifactsUrl: "{{ projectArtifactsUrl }}"
+      remoteAppSettings: "{{ remoteAppSettings }}"
+      deployPlace: "{{ deployPlace }}"
+      readinessUrl: "{{ listenUrl }}/{{ readinessUrl|regex_replace('^\\/', '') }}"
+      readinessHost: "{{ readinessHost }}"
+      vault:
+        serverUrl: "{{ vault.serverUrl }}"
+        secretPath: "{{ vault.secretPath }}"
+        userName: "{{ vault.userName }}"
+        userPassword: "{{ vault.userPassword }}"
+  block:
+    - name: Ensure unzip installed
+      package:
+        name: unzip
+        state: present
+
+    - name: Copy wkhtmltopdf to /usr/bin
+      copy:
+        src: "files/wkhtmltopdf"
+        dest: /usr/bin/wkhtmltopdf
+        mode: '0754'
+        owner: devops
+        
+    - name: Stop updating service if it's running
+      service:
+        name: "{{ appService.serviceName }}"
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+    - name: Create/clear directory
+      file:
+        path: "{{ appService.serviceDir }}"
+        state: "{{ item }}"
+        mode: '0777'
+      with_items:
+        - absent
+        - directory
+
+    - name: Unarchive packages
+      unarchive:
+        src: "{{appService.projectArtifactsUrl}}"
+        dest: "{{ appService.serviceDir }}"
+        remote_src: yes
+        
+    - name: find appsettings files
+      find:
+        paths: "{{appService.serviceDir}}/{{ appService.workingDirectory }}"
+        patterns: "^appsettings.*.json"
+        use_regex: true
+      register: appsettings_files_to_delete
+      when: remoteAppSettings is not defined or remoteAppSettings == true
+
+    - name: remove appsettings files
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ appsettings_files_to_delete.files }}"
+      when: remoteAppSettings is not defined or remoteAppSettings == true
+
+    - name: Copy configuration file
+      copy:
+        src: "{{ appService.configurationFile }}"
+        dest: "{{appService.serviceDir}}/{{ appService.workingDirectory }}/appsettings.json"
+      when: remoteAppSettings is not defined or remoteAppSettings == true
+
+    - name: Init service app directories
+      file:
+        state: directory
+        path: "{{ appService.serviceDir }}"
+        owner: devops
+        group: devops
+        recurse: yes
+        mode: 0775
+
+    - name: Init app systemd services
+      template:
+        src: templates/api.service.j2
+        dest: "/etc/systemd/system/{{ item.serviceName }}"
+      with_items:
+        - "{{ appService }}"
+
+    - name: Start updating service
+      service:
+        name: "{{ appService.serviceName }}"
+        state: restarted
+        enabled: yes
+
+    - name: elk-journalbeat vars init
+      set_fact:
+        journalbeatAppName: "{{ appName }}"
+        journalbeatDeployPlace: "{{ appService.deployPlace }}"
+
+    - name: debug role path
+      debug:
+        msg: "{{ journalbeatAppName }}  -> {{ journalbeatDeployPlace }}"
+    
+    - name: elk-journalbeat
+      import_role:
+        name: elk-journalbeat
+      vars:
+        journalbeatAppName: "{{ journalbeatAppName }}"
+        journalbeatDeployPlace: "{{ journalbeatDeployPlace }}"    
+
+    - name: Wait for service starting... (from 1 to 60 seconds)
+      wait_for:
+        port: "{{ appService.bindPort }}"
+        delay: 1
+        timeout: 60
+    
+    - name: Service readiness check
+      uri:
+        url: "{{ appService.readinessUrl }}"
+        headers:
+          host: "{{ appService.readinessHost }}"

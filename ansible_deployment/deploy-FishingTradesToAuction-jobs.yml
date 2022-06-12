@@ -1,0 +1,29 @@
+- name: FishingTradesToAuction
+  hosts: workers-mons
+  roles:
+  - role: latest-yum-packages
+    when: COMMAND == "DEPLOY_JOBS"
+
+  - role: dotnet
+    vars:
+      dotnet_package: aspnetcore-runtime-6.0
+    when: COMMAND == "DEPLOY_JOBS"
+
+  - role: local-api-service
+    vars:
+      appName: FishingTradesToAuction
+      description: "FishingTradesToAuction"
+      entryDll: "FishingTradesToAuction.dll"
+      workingDirectory: "/web/FishingTradesToAuction"
+      appEnvironment: "{{ APP_ENVIRONMENT }}"
+      appRootDir: /web
+      listenUrl: http://localhost:32445
+      remote_app_setting: false
+      configurationFile: ""
+      projectArtifactsPath: "{{ CI_PROJECT_DIR }}/{{ DEPLOY_DIR }}/deploy.zip"
+      vault: 
+        serverUrl: https://vault.servers.lan
+        secretPath: "{{MONITOR_APP_VAULT_SECRET_PATH}}"
+        userName: "{{MONITOR_APP_VAULT_USER}}"
+        userPassword: "{{MONITOR_APP_VAULT_PWD}}"
+    when: (COMMAND == "DEPLOY_JOBS")

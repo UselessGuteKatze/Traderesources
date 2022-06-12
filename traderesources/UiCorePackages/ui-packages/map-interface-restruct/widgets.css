@@ -1,0 +1,41 @@
+﻿.stylized-widget-container {
+    display: block;
+    border-radius: 5px 5px 0 0;
+    height: inherit;
+    background-color: rgba(245, 245, 245, 0.85);
+    color: rgba(53, 63, 76, 0.85);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 32px;
+    padding: 5px;
+}
+.stylized-widget-task-bar {
+    display: flex;
+    height: 32px;
+    background-color: rgba(53, 63, 76, 0.85);
+    color: rgba(245, 245, 245, 0.85);
+    border-radius: 0 0 5px 5px;
+    align-items: center;
+    justify-content: center;
+}
+.stylized-widget-task-bar table {
+    width: 100%;
+    height: 100%;
+}
+.stylized-widget-task-bar table td {
+    text-align: center;
+}
+.stylized-widget-controls {
+    left: 0;
+    position: inherit;
+    text-align: left;
+}
+.stylized-widget-control {
+    font-size: 21px;
+    cursor: pointer;
+    margin-left: 3px;
+}
+.stylized-widget-title {
+
+}

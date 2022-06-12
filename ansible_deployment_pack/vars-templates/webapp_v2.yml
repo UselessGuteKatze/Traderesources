@@ -1,0 +1,51 @@
+playbookRunEnv: # this parameters must be passed to playbook via -e parameter
+    jobToken:           CI_JOB_TOKEN
+    sslCert:
+        pub:            SSL_CERTIFICATE_PUB
+        key:            SSL_CERTIFICATE_KEY
+    appEnv:             DEPLOY_APP_ENVIRONMENT
+    appDomainPrefix:    DOMAIN_PREFIX
+    
+    vault: 
+        secretPath:     APP_VAULT_SECRET_PATH
+        user:           APP_VAULT_USER
+        pwd:            APP_VAULT_PWD
+        
+    updateServiceNum:   UPDATE_SERVICE_NUMBER
+    deploymentArtifactsPath: DEPLOY_ARTIFACTS_PATH
+
+deployProjectId: 11
+deployProjectJobName: build
+
+acceptingHosts:
+    - subsidies
+    
+webappDomainPrefix: "{{ playbookRunEnv.appDomainPrefix|default('') }}"
+
+webapp:
+    name: subsidies
+    description: Subsidies application
+    appEntryPoint: bin/netcoreapp2.0/Yoda.dll
+    webRootDir: "/home/devops/web"
+    
+    deployArtifacts:
+        url: "https://gitlab.servers.lan/api/v4/projects/{{ deployProjectId }}/jobs/artifacts/master/download?job={{ deployProjectJobName }}"
+        headers:
+            "JOB-TOKEN": "{{ playbookRunEnv.jobToken }}"
+    
+    deployArtifactsPath: "{{ playbookRunEnv.deploymentArtifactsPath }}"
+
+    environment: "{{ playbookRunEnv.appEnv }}"
+    acceptingHosts: "{{ ' '.join( map(lambda domain: webappDomainPrefix + domain, acceptingHosts) )) }}"
+    worldListenPort: 443
+    sslCertificate:
+        pub: "{{ playbookRunEnv.sslCert.pub }}"
+        key: "{{ playbookRunEnv.sslCert.key }}"
+    vault:
+        secretPath: "{{ playbookRunEnv.vault.secretPath }}"
+        userName: "{{ playbookRunEnv.vault.user }}"
+        userPassword: "{{ playbookRunEnv.vault.pwd }}"
+    warmupPath: ru
+    warmupHost: "{{webappDomainPrefix}}subsidies.qoldau.kz"
+    basePort: 6500 
+    forceUpdateServiceNumber: "{{ playbookRunEnv.updateServiceNum|default(-1) }}"

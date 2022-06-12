@@ -1,0 +1,9 @@
+- hosts: "{{ target }}"
+  tasks:
+  - name: "Install qazcertMITM certificate"
+    template:
+      src: templates/qazcertMITM.crt
+      dest: /etc/pki/ca-trust/source/anchors/qazcertMITM.crt
+
+  - name: Update ca certificate
+    command: update-ca-trust

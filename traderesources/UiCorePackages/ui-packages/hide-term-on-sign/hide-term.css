@@ -1,0 +1,17 @@
+﻿.app-term {
+    display: none;
+}
+
+.app-term-checkbox label {
+    display: initial;
+    font-size: 18px;
+    color: red;
+}
+
+.app-term-checkbox {
+    margin-bottom: 10px;
+}
+
+.app-terms {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,162 @@
+﻿@using Yoda.Helpers
+@using Yoda.Models
+@using Yoda.WebSectionConfigs
+@model YodaRenderData
+
+@{
+    var rootDir = Url.Content("~/") + Model.CurrentLanguage + "/";
+    var filesRootDir = Url.Content("~/");
+    var dbMode = Yoda.Core.YodaStoreConfigurations.Mode;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+    <head runat="server">
+        <title>@Model.Title</title>
+        <link rel="SHORTCUT ICON" href="@Model.ProjectIconUrl" />
+        @foreach (var cssFile in Model.StyleSheetFiles) {
+            using (new ConditionalCommentWrapper(Html, cssFile.ConditionalComment)) {
+                <link type="text/css" rel="stylesheet" href="@cssFile.File" />
+            }
+        }
+        
+        <script type="text/javascript">
+            var rootDir = "@rootDir";
+            var filesRootDir = "@filesRootDir";
+        </script>
+           
+        @foreach (var jsFile in Model.JsFiles) {
+            using (new ConditionalCommentWrapper(Html, jsFile.ConditionalComment)) {
+                <script src="@jsFile.File" type="text/javascript"></script>
+            }
+        }
+</head>
+    <body>
+        <div class="outer-wrapper">
+            @if (dbMode == YodaConfigurationMode.Development) {
+                <div class="connection-type-label green-label">Тестовая база</div>
+            } else if (Request.IsLocal) {
+                if (dbMode == YodaConfigurationMode.Demo) {
+                    <div class="connection-type-label green-label">ДЕМО-база</div>
+                } else {
+                    <div class="connection-type-label red-label">Рабочая база</div>
+                }
+            }
+            <div id="top-right-blocks-exp">@{Html.RenderPartial("Block", Model.Blocks["top-right"], new ViewDataDictionary { { "print-header", false }, { "print-wrapper", false } });}</div>
+            <div id="shortcuts-container">@{Html.RenderPartial("Block", Model.Blocks["shortcuts"], new ViewDataDictionary { { "print-header", false }, { "print-wrapper", false } });}</div>
+            <div id="wrapper">
+                <div id="top-decor">&nbsp;</div>
+                <div id="top-header">
+                    @{ Html.RenderPartial("Header", new ProjectText { Text = Model.ProjectText }); }
+                </div>
+                <div id="header">
+                    <div id="menu-block">
+                        @{ 
+                            Html.RenderPartial("MenuBlock",
+                               new MenuInfo {
+                                   Menu = Model.Menu, CurrentModuleName = Model.Module, CurrentMenuName = Model.Method,
+                                   RequestContext = Model.RequestContext
+                               },
+                               new ViewDataDictionary { { "print-header", false }, { "print-wrapper", false } }
+                           ); 
+                        }
+                        <div id="lang-selector">
+                            @{
+                                foreach (var language in Model.SupportedLanguages) {
+                                    var langChangeLink = Html.GetChangeLanguageLink(Model.Module, Model.Method, language, Model.CurrentLanguage);
+                                    <text>@langChangeLink</text>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div id="menu-shadow"></div>
+                    <div>
+                        @{Html.RenderPartial("Block", Model.Blocks["under-menu"], new ViewDataDictionary { { "print-header", false }, { "print-wrapper", false } });}
+                    </div>
+                </div>
+                <div id="container">
+                    <div id="content">
+                        @{
+                            string layoutClass = "three-column-style-text";
+                            if (Model.Blocks["right"].Length == 0 && Model.Blocks["left"].Length == 0) {
+                                layoutClass = "one-column-style-text";
+                            } else if (Model.Blocks["right"].Length == 0) {
+                                layoutClass = "left-side-two-column-style-text";
+
+                            } else if (Model.Blocks["left"].Length == 0) {
+                                layoutClass = "right-side-two-column-style-text";
+                            }
+                        }
+                        <div id="text" class="@layoutClass">
+                            <div style="height:5px"></div>
+                            <table>
+                                <tr>
+                                    <td id="breadcrumb-td-start"></td>
+                                    <td><div id="breadcrumb">@{Html.RenderPartial("Breadcrumb", Model.Breadcrumb, null);}</div></td>
+                                    <td id="breadcrumb-td-end"></td>
+                                </tr>
+                            </table>
+                            <div id="title-and-local-tasks">
+                                <table>
+                                    <tr>
+                                        <td><div id="title">@ViewData.Model.Title</div></td>
+                                        <td><div id="local-tasks">@{Html.RenderPartial("LocalTasks", Model.LocalTasksArea, null);}</div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            @if (!string.IsNullOrEmpty(TempData["PostbackMessage"] + string.Empty)) {
+                                <div id="postback-message">@(TempData["PostbackMessage"] + string.Empty)</div>
+                            }
+                            @if (Model.Blocks["center-top"].Length > 0) {
+                                <div id="center-top-blocks">
+                                    @{Html.RenderPartial("Block", Model.Blocks["center-top"], new ViewDataDictionary { { "print-header", false }, { "print-wrapper", false } });}
+                                </div>
+                            }
+                            <div id="main-content">
+                                @{ Html.RenderPartial("MainContent", Model, ViewData); }
+                                <div id="center-blocks">
+                                    @{Html.RenderPartial("Block", Model.Blocks["center"], null);}
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+
+                    @if (Model.Blocks["left"].Length > 0) {
+                        <div id="left">
+                            <div id="left-blocks">
+                                @{Html.RenderPartial("Block", Model.Blocks["left"], null);}
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Blocks["right"].Length > 0) {
+                        <div id="right">
+                            <div id="right-blocks">
+                                @{Html.RenderPartial("Block", Model.Blocks["right"], null);}
+                            </div>
+                        </div>
+                    }
+                    <div class="clear"></div>
+                </div>
+                <div id="footer">
+                    @{Html.RenderPartial("Block", Model.Blocks["footer"], null);}
+                </div>
+            </div>
+            <div class="footer" id="extra">
+                <div class="stat">Статистика посещений<br/>
+                    за день: @ViewBag.Today<br/>
+                    за месяц: @ViewBag.Month<br/>
+                    Всего: @ViewBag.Total<br/>
+                </div>
+                <div class="copyright">Разработчик © 1993 - 2013<br />
+                    АО “Информационно-учетный центр”<br />
+                    <a target="_blank" href="http://www.iuc.kz">www.iuc.kz, www.иуц.kz</a>
+                </div>
+            </div>
+            <div style="display: none">
+                Generated in @(Model.Stopwatch.ElapsedMilliseconds)ms
+            </div>
+        </div>
+    </body>
+</html>

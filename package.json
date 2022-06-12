@@ -1,0 +1,22 @@
+{
+  "name": "react_js_compiler",
+  "version": "1.0.0",
+  "description": "Gulp tasks",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "author": "Nurzhas",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^3.1.2",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-dotnet-cli": "^1.1.0",
+    "gulp-rename": "^1.4.0"
+  }
+}

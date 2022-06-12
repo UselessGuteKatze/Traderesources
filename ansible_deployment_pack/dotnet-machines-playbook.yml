@@ -1,0 +1,4 @@
+- name: Configure dotnet runtime
+  hosts: dotnet
+  roles:
+    - dotnet

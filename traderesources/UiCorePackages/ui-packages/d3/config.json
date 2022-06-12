@@ -1,0 +1,4 @@
+﻿//https://d3js.org/
+{
+  "require": [ "jquery.core" ]
+}

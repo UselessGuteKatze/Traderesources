@@ -1,0 +1,43 @@
+﻿.exListbox {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #D6D6D6;
+}
+.exListbox-container {
+    width: 100%;
+}
+.exListbox-items {
+    display: block;
+    overflow-y: scroll;
+    height: 196px;
+    margin-top: 3px;
+    border: 1px solid #D6D6D6 !important;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.exListbox-filter {
+    display: block;
+    margin: 3px;
+}
+.exListbox-filter input {
+    border: 1px solid #D6D6D6 !important;
+    margin: 0px !important;
+    width: 100% !important;
+}
+.exListbox-item {
+    display: block;
+    font-size: 13px;
+    font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: white;
+    color: #525252;
+    cursor: pointer;
+    text-indent: 1.5em;
+}
+.exListbox-item-selected {
+    background-color: #868686;
+    color: white;
+}

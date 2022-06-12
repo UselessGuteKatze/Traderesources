@@ -1,0 +1,24 @@
+---
+- include: rhel.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'RedHat' or ansible_distribution == 'Amazon'
+
+- include: ubuntu.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: "Install {{ dotnet_package }}"
+  package:
+    name: "{{ dotnet_package }}"
+    state: present
+    update_cache: true
+
+- name: check if dotnet in new location exists
+  stat:
+    path: /usr/local/bin/dotnet
+  register: new_dotnet_status 
+
+- name: Create symbolic link dotnet new location
+  file:
+    src: "/usr/local/bin/dotnet"
+    dest: "/usr/bin/dotnet"
+    state: link
+  when: new_dotnet_status.stat.exists == true

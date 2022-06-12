@@ -1,0 +1,407 @@
+variables:
+  GIT_SSL_NO_VERIFY: "1"
+  GIT_SUBMODULE_STRATEGY: recursive
+
+.common:
+  buildBeforeScript: &buildBeforeScript
+    - export http_proxy=192.168.67.52:9090
+    - export https_proxy=192.168.67.52:9090
+    - export no_proxy='.servers.lan,192.168.*'
+    - cp ansible_deployment_pack/shared-certs/* /usr/local/share/ca-certificates
+    - update-ca-certificates
+    - cp ansible_deployment/* ansible_deployment_pack
+
+  initServerBeforeScript: &initServerBeforeScript
+    - export http_proxy=192.168.67.52:9090
+    - export https_proxy=192.168.67.52:9090
+    - export no_proxy='.servers.lan,192.168.*'
+    - cp ansible_deployment/* ansible_deployment_pack
+
+  deployBeforeScript: &deployBeforeScript
+    - export http_proxy=192.168.67.52:9090
+    - export https_proxy=192.168.67.52:9090
+    - export no_proxy='.servers.lan,192.168.*'
+    - pushd $DEPLOY_DIR
+    - zip -r -q deploy.zip ./
+    - popd
+    - cp ansible_deployment/* ansible_deployment_pack
+
+  execPlaybookScript: &execPlaybookScript
+    - cd ansible_deployment_pack
+    - ansible-playbook $PLAYBOOK
+        -i $HOSTS 
+        -b 
+        --user devops
+        -e "
+        COMMAND=$COMMAND
+        COMMAND_ARG=$COMMAND_ARG
+        DEPLOY_DIR=$DEPLOY_DIR
+        CI_PROJECT_DIR=$CI_PROJECT_DIR
+
+        APP_ENVIRONMENT=$APP_ENV
+        
+        WEB_SSL_CERTIFICATE_PUB=$APP_SSL_CERT_PUB
+        WEB_SSL_CERTIFICATE_KEY=$APP_SSL_CERT_KEY
+        
+        WEB_APP_VAULT_SECRET_PATH=$WEB_VAULT_SECRET_PATH
+        WEB_APP_VAULT_USER=$WEB_VAULT_USER
+        WEB_APP_VAULT_PWD=$WEB_VAULT_PWD
+        WEB_UPDATE_SERVICE_NUMBER=$WEB_UPDATE_SERVICE_NUMBER
+
+        MONITOR_APP_VAULT_SECRET_PATH=$WEB_VAULT_SECRET_PATH
+        MONITOR_APP_VAULT_USER=$WEB_VAULT_USER
+        MONITOR_APP_VAULT_PWD=$WEB_VAULT_PWD
+
+        INTEGRATION_SIGN_CERTIFICATE_1_PATH=$INTEGRATION_SIGN_CERTIFICATE_1_PATH
+        INTEGRATION_SIGN_CERTIFICATE_1_PWD=$INTEGRATION_SIGN_CERTIFICATE_1_PWD
+        
+        INTEGRATION_SIGN_CERTIFICATE_2_PATH=$INTEGRATION_SIGN_CERTIFICATE_2_PATH
+        INTEGRATION_SIGN_CERTIFICATE_2_PWD=$INTEGRATION_SIGN_CERTIFICATE_2_PWD 
+        
+        DOMAIN_PREFIX=$DOMAIN_PREFIX "
+    - cd ..
+
+  productionVariables: &productionVariables
+    APP_ENV: Production
+    
+    WEB_VAULT_USER: $WEB_APP_PRODUCTION_VAULT_USER
+    WEB_VAULT_PWD: $WEB_APP_PRODUCTION_VAULT_PWD
+    WEB_VAULT_SECRET_PATH: $WEB_APP_PRODUCTION_VAULT_SECRET_PATH
+    WEB_UPDATE_SERVICE_NUMBER: $WEB_APP_UPDATE_SERVICE_NUMBER
+
+    HOSTS: hostsProduction
+
+  
+  stagingVariables: &stagingVariables
+    APP_ENV: Staging
+    
+    WEB_VAULT_USER: $WEB_APP_STAGING_VAULT_USER
+    WEB_VAULT_PWD: $WEB_APP_STAGING_VAULT_PWD
+    WEB_VAULT_SECRET_PATH: $WEB_APP_STAGING_VAULT_SECRET_PATH
+    WEB_UPDATE_SERVICE_NUMBER: $WEB_APP_UPDATE_SERVICE_NUMBER
+    
+    HOSTS: hostsStaging
+    DOMAIN_PREFIX: demo-
+  
+
+stages:
+  - build
+  - deploy-jobs
+  - push-nuget
+  # - init_and_build
+
+BuildTradeResourcesWeb:
+  stage: build
+  image: nexus.dc.servers.lan:8083/dotnet/sdk:6.0
+  tags:
+    - dotnet-build
+  artifacts:
+    paths:
+      - deploy_pack/web/*
+  before_script: *buildBeforeScript
+  script:
+    - rm -rf *.localsettings.json
+
+    - dotnet restore --packages /nuget_packages --source https://nexus.dc.servers.lan:8443/repository/nuget-org-proxy-v2/ --source https://nuget.servers.lan/nuget
+    - dotnet build --no-restore
+
+    - dotnet publish traderesources/traderesources.csproj -c Release --no-restore
+    
+    - mkdir deploy_pack/
+    
+    - mkdir deploy_pack/web
+    - mkdir deploy_pack/web/bin
+    - mkdir deploy_pack/web/bin/net6.0
+    - mkdir deploy_pack/web/wwwroot
+    - mkdir deploy_pack/web/Scripts
+    
+    - \cp -r traderesources/bin/Release/net6.0/* deploy_pack/web/bin/net6.0
+    - \cp -r traderesources/bin/Release/net6.0/publish/* deploy_pack/web/bin/net6.0
+    - \rm -rf deploy_pack/web/bin/net6.0/publish
+
+    - cp -r traderesources/Plugins             deploy_pack/web
+    - cp -r traderesources/Views               deploy_pack/web
+    - cp -r traderesources/Fonts               deploy_pack/web
+    - cp -r traderesources/html-pages          deploy_pack/web
+    - cp -r traderesources/Theme               deploy_pack/web
+    - cp -r traderesources/UiCorePackages      deploy_pack/web
+    - cp -r traderesources/db                  deploy_pack/web
+    - cp -r traderesources/appsettings*json    deploy_pack/web
+
+    - pushd deploy_pack/web
+    - rm -rf *.localsettings.json
+    - popd
+
+
+BuildTradeResourcesJobs:
+  stage: build
+  image: nexus.dc.servers.lan:8083/dotnet/sdk:6.0
+  tags:
+    - dotnet-build
+  artifacts:
+    paths:
+      - deploy_pack/jobs/*
+  when: manual
+  before_script: *buildBeforeScript
+  script:
+    - rm -rf *.localsettings.json
+
+    - dotnet restore --packages /nuget_packages --source https://nexus.dc.servers.lan:8443/repository/nuget-org-proxy-v2/ --source https://nuget.servers.lan/nuget
+    - dotnet build --no-restore
+
+    - dotnet publish Jobs/HydrocarbonTradesToAuction/HydrocarbonTradesToAuction.csproj -c Release --no-restore
+    - dotnet publish Jobs/ForestTradesToAuction/ForestTradesToAuction.csproj -c Release --no-restore
+    - dotnet publish Jobs/LandTradesToAuction/LandTradesToAuction.csproj -c Release --no-restore
+    - dotnet publish Jobs/HuntingTradesToAuction/HuntingTradesToAuction.csproj -c Release --no-restore
+    - dotnet publish Jobs/FishingTradesToAuction/FishingTradesToAuction.csproj -c Release --no-restore
+    - dotnet publish Jobs/PaymentsToBudget/PaymentsToBudget.csproj -c Release --no-restore
+
+    - mkdir -p deploy_pack/
+    
+    - mkdir deploy_pack/jobs
+
+    - mkdir deploy_pack/jobs/HydrocarbonTradesToAuction
+    - cp -r Jobs/HydrocarbonTradesToAuction/bin/Release/net6.0/* deploy_pack/jobs/HydrocarbonTradesToAuction
+    
+    - mkdir deploy_pack/jobs/ForestTradesToAuction
+    - cp -r Jobs/ForestTradesToAuction/bin/Release/net6.0/* deploy_pack/jobs/ForestTradesToAuction
+    
+    - mkdir deploy_pack/jobs/LandTradesToAuction
+    - cp -r Jobs/LandTradesToAuction/bin/Release/net6.0/* deploy_pack/jobs/LandTradesToAuction
+    
+    - mkdir deploy_pack/jobs/HuntingTradesToAuction
+    - cp -r Jobs/HuntingTradesToAuction/bin/Release/net6.0/* deploy_pack/jobs/HuntingTradesToAuction
+    
+    - mkdir deploy_pack/jobs/FishingTradesToAuction
+    - cp -r Jobs/FishingTradesToAuction/bin/Release/net6.0/* deploy_pack/jobs/FishingTradesToAuction
+    
+    - mkdir deploy_pack/jobs/PaymentsToBudget
+    - cp -r Jobs/PaymentsToBudget/bin/Release/net6.0/* deploy_pack/jobs/PaymentsToBudget
+
+
+PushTradeResourcesApiClientNugetPackageAndBuildApi:
+  stage: push-nuget
+  only:
+    refs:
+      - master
+  when: manual
+  image: nexus.dc.servers.lan:8083/dotnet/sdk:6.0
+  tags:
+    - dotnet-build
+  artifacts:
+    paths:
+      - deploy_pack/api/*
+  before_script: *buildBeforeScript
+  script:
+
+    - rm -rf *.localsettings.json
+
+    - dotnet restore --packages /nuget_packages --source https://nexus.dc.servers.lan:8443/repository/nuget-org-proxy-v2/ --source https://nuget.servers.lan/nuget
+    - dotnet build --no-restore
+    
+    - dotnet publish Api/TraderesourcesApi/TraderesourcesApi.csproj -c Release --no-restore
+    - dotnet publish Api/TraderesourcesApi.Client/TraderesourcesApi.Client.csproj -c Release --no-restore
+    
+    - mkdir -p deploy_pack/
+    
+    - mkdir deploy_pack/api
+    - cp -r Api/TraderesourcesApi/bin/Release/net6.0/* deploy_pack/api
+
+    - mkdir deploy_pack/nuget
+    - cp -r Api/TraderesourcesApi.Client/bin/Release/*.nupkg deploy_pack/nuget
+    
+    - pushd deploy_pack/api
+    - rm -rf *.localsettings.json
+    - popd
+
+    - cd deploy_pack/nuget
+    - ls
+    - dotnet nuget push **/*.nupkg -k $LOCAL_NUGET_API_KEY -s https://nuget.servers.lan/nuget --skip-duplicate
+    - dotnet nuget push **/*.nupkg -k $LOCAL_AQ_NUGET_API_KEY -s http://nexus.aq.servers.lan:9059/repository/our-nuget-hosted --skip-duplicate
+    - cd ..
+
+
+HydrocarbonTradesToAuction_DeployProduction:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - master
+  when: manual
+  variables:
+    <<: *productionVariables
+    DEPLOY_DIR: deploy_pack/jobs/HydrocarbonTradesToAuction
+    PLAYBOOK: deploy-HydrocarbonTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+HydrocarbonTradesToAuction_DeployStaging:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - staging
+  when: manual
+  variables:
+    <<: *stagingVariables
+    DEPLOY_DIR: deploy_pack/jobs/HydrocarbonTradesToAuction
+    PLAYBOOK: deploy-HydrocarbonTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+
+ForestTradesToAuction_DeployProduction:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - master
+  when: manual
+  variables:
+    <<: *productionVariables
+    DEPLOY_DIR: deploy_pack/jobs/ForestTradesToAuction
+    PLAYBOOK: deploy-ForestTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+ForestTradesToAuction_DeployStaging:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - staging
+  when: manual
+  variables:
+    <<: *stagingVariables
+    DEPLOY_DIR: deploy_pack/jobs/ForestTradesToAuction
+    PLAYBOOK: deploy-ForestTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+
+
+LandTradesToAuction_DeployProduction:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - master
+  when: manual
+  variables:
+    <<: *productionVariables
+    DEPLOY_DIR: deploy_pack/jobs/LandTradesToAuction
+    PLAYBOOK: deploy-LandTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+LandTradesToAuction_DeployStaging:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - staging
+  when: manual
+  variables:
+    <<: *stagingVariables
+    DEPLOY_DIR: deploy_pack/jobs/LandTradesToAuction
+    PLAYBOOK: deploy-LandTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+
+
+HuntingTradesToAuction_DeployProduction:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - master
+  when: manual
+  variables:
+    <<: *productionVariables
+    DEPLOY_DIR: deploy_pack/jobs/HuntingTradesToAuction
+    PLAYBOOK: deploy-HuntingTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+HuntingTradesToAuction_DeployStaging:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - staging
+  when: manual
+  variables:
+    <<: *stagingVariables
+    DEPLOY_DIR: deploy_pack/jobs/HuntingTradesToAuction
+    PLAYBOOK: deploy-HuntingTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+
+
+FishingTradesToAuction_DeployProduction:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - master
+  when: manual
+  variables:
+    <<: *productionVariables
+    DEPLOY_DIR: deploy_pack/jobs/FishingTradesToAuction
+    PLAYBOOK: deploy-FishingTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+FishingTradesToAuction_DeployStaging:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - staging
+  when: manual
+  variables:
+    <<: *stagingVariables
+    DEPLOY_DIR: deploy_pack/jobs/FishingTradesToAuction
+    PLAYBOOK: deploy-FishingTradesToAuction-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+
+
+PaymentsToBudget_DeployProduction:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - master
+  when: manual
+  variables:
+    <<: *productionVariables
+    DEPLOY_DIR: deploy_pack/jobs/PaymentsToBudget
+    PLAYBOOK: deploy-PaymentsToBudget-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript
+  
+PaymentsToBudget_DeployStaging:
+  stage: deploy-jobs
+  tags: [ansible-deployment]
+  only:
+    refs:
+      - staging
+  when: manual
+  variables:
+    <<: *stagingVariables
+    DEPLOY_DIR: deploy_pack/jobs/PaymentsToBudget
+    PLAYBOOK: deploy-PaymentsToBudget-jobs.yml
+    COMMAND: "DEPLOY_JOBS"
+  before_script: *deployBeforeScript
+  script: *execPlaybookScript

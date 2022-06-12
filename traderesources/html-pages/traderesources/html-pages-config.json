@@ -1,0 +1,1176 @@
+﻿{
+  "traderesources": {
+    "html-pages": {
+      "public-info": {
+        "title": "Информация",
+        "menu-path": "traderesources-info/help",
+        "file": "content/startpage.htm",
+        "file-ru": "content/startpage.ru.htm",
+        "file-kz": "content/startpage.kz.htm",
+        "file-en": "content/startpage.en.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -1000,
+        "visible": true,
+        "icon-css-class": "mdi mdi-information-outline"
+      },
+
+      "prikaz-270": {
+        "title": "prikaz-270.pdf",
+        "menu-path": "traderesources/prikaz-270",
+        "file": "content/prikaz-270.pdf",
+        "weight": -100
+      },
+
+      "q021220": {
+        "title": "q021220.pdf",
+        "menu-path": "traderesources/q021220",
+        "file": "content/q021220.pdf",
+        "weight": -100
+      },
+
+      "scheme": {
+        "title": "scheme.jpg",
+        "menu-path": "traderesources/scheme",
+        "file": "content/scheme.jpg",
+        "file-ru": "content/scheme.ru.jpg",
+        "file-kz": "content/scheme.kz.jpg",
+        "file-en": "content/scheme.en.jpg",
+        "weight": -100
+      },
+
+      "res-subsoil": {
+        "title": "Недропользование",
+        "menu-path": "traderesources/res-subsoil",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-1"
+      },
+
+      "res-hydrocarbon": {
+        "title": "1.1 Углеводороды",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-hydrocarbon-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon/info",
+        "file": "content/res-hydrocarbon-info.htm",
+        "file-en": "content/res-hydrocarbon-info.en.htm",
+        "file-kz": "content/res-hydrocarbon-info.kz.htm",
+        "file-ru": "content/res-hydrocarbon-info.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-hydrocarbon-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Получить консультацию",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon/contacts",
+        "file": "content/res-hydrocarbon-call-center.htm",
+        "file-ru": "content/res-hydrocarbon-call-center.ru.htm",
+        "file-kz": "content/res-hydrocarbon-call-center.kz.htm",
+        "file-en": "content/res-hydrocarbon-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-hydrocarbon-stat": {
+      //  "title": "Статистика",
+      //  "menu-path": "traderesources/res-subsoil/res-hydrocarbon/stat",
+      //  "file": "content/in-develop.ru.htm",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+      //"res-hydrocarbon-map": {
+      //  "title": "Карта",
+      //  "menu-path": "traderesources/res-subsoil/res-hydrocarbon/map",
+      //  "redirect-url": "https://lands.qoldau.kz/ru/lands-map/subsoils",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+
+
+      "res-tpi": {
+        "title": "1.2 Твердые полезные ископаемые",
+        "menu-path": "traderesources/res-subsoil/res-tpi",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-tpi-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-tpi/info",
+        "file": "content/res-tpi-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-tpi-stat": {
+        "title": "Статистика",
+        "menu-path": "traderesources/res-subsoil/res-tpi/stat",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-tpi-map": {
+      //  "title": "Карта",
+      //  "menu-path": "traderesources/res-subsoil/res-tpi/map",
+      //  "file": "content/in-develop.ru.htm",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+
+      "res-common": {
+        "title": "1.3 Общераспространенные полезные ископаемые",
+        "menu-path": "traderesources/res-subsoil/res-common",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-common-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-common/info",
+        "file": "content/res-common-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-common-stat": {
+        "file": "content/in-develop.ru.htm",
+        "menu-path": "traderesources/res-subsoil/res-common/stat",
+        "title": "Статистика",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "visible": true,
+        "weight": -100
+      },
+
+      "res-gas": {
+        "title": "1.4. Сжиженный нефтяной газ",
+        "menu-path": "traderesources/res-subsoil/res-gas",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-gas-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-gas/info",
+        "file": "content/res-gas-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-gas-stat": {
+        "file": "content/in-develop.ru.htm",
+        "menu-path": "traderesources/res-subsoil/res-gas/stat",
+        "title": "Статистика",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "visible": true,
+        "weight": -100
+      },
+
+      "res-land": {
+        "title": "Земельные ресурсы",
+        "menu-path": "traderesources/res-land",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-2"
+      },
+      "res-land-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-land/info",
+        "file": "content/res-land-info.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-land-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Получить консультацию",
+        "menu-path": "traderesources/res-land/contacts",
+        "file": "content/res-land-call-center.htm",
+        "file-ru": "content/res-land-call-center.ru.htm",
+        "file-kz": "content/res-land-call-center.kz.htm",
+        "file-en": "content/res-land-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-land-stat": {
+      //  "file": "content/in-develop.ru.htm",
+      //  "menu-path": "traderesources/res-land/stat",
+      //  "title": "Статистика",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "visible": true,
+      //  "weight": -100
+      //},
+
+      "res-forest": {
+        "title": "Лесные ресурсы",
+        "menu-path": "traderesources/res-forest",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-3"
+      },
+      "res-forest-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-forest/info",
+        "file": "content/res-forest-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-animal": {
+        "title": "Животный мир",
+        "menu-path": "traderesources/res-animal",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-4"
+      },
+      "res-animal-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-animal/info",
+        "file": "content/res-animal-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-animal-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Сфера природопользования",
+        "menu-path": "traderesources/res-animal/contacts",
+        "file": "content/res-animal-call-center.htm",
+        "file-ru": "content/res-animal-call-center.ru.htm",
+        "file-kz": "content/res-animal-call-center.kz.htm",
+        "file-en": "content/res-animal-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication": {
+        "title": "Ресурсы связи",
+        "menu-path": "traderesources/res-communication",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-5"
+      },
+
+      "res-communication-operators": {
+        "title": "5.1 Для операторов связи",
+        "menu-path": "traderesources/res-communication/operators",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-operators-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/operators/info",
+        "file": "content/res-communication-operators-info.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-operators-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/operators/stat",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-broadcasting": {
+        "title": "5.2 Для телерадиовещания",
+        "menu-path": "traderesources/res-communication/broadcasting",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-broadcasting-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/broadcasting/info",
+        "file": "content/res-communication-broadcasting.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/broadcasting/stat",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-registry": {
+        "title": "Реестр",
+        "page-title": "Реестр",
+        "menu-path": "traderesources/res-communication/broadcasting/registry",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-map": {
+        "title": "Карта",
+        "page-title": "Карта",
+        "menu-path": "traderesources/res-communication/broadcasting/map",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-radioservices": {
+        "title": "5.3 Для радиослужб",
+        "menu-path": "traderesources/res-communication/radioservices",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-radioservices-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/radioservices/info",
+        "file": "content/res-communication-radioservices.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/radioservices/stat",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-registry": {
+        "title": "Реестр",
+        "page-title": "Реестр",
+        "menu-path": "traderesources/res-communication/radioservices/registry",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-map": {
+        "title": "Карта",
+        "page-title": "Карта",
+        "menu-path": "traderesources/res-communication/radioservices/map",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-universal": {
+        "title": "5.4 Для универсальных услуг связи",
+        "menu-path": "traderesources/res-communication/universal",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      
+    },
+    "defaults": {
+      "project": "traderesources",
+      "html-pages-menu-path": "traderesources-info/help/{PageName}",
+      "ui-packages": "traderesources-html-pages;html-pages"
+    }
+  },
+
+
+  "cabinetResourceSeller": {
+    "html-pages": {
+      "public-info": {
+        "title": "Информация",
+        "menu-path": "traderesources-info/help-c",
+        "file-ru": "content/startpage.ru.htm",
+        "file-kz": "content/startpage.kz.htm",
+        "file-en": "content/startpage.en.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "prikaz-270": {
+        "title": "prikaz-270.pdf",
+        "menu-path": "traderesources/prikaz-270-c",
+        "file": "content/prikaz-270.pdf",
+        "weight": -100
+      },
+
+
+      "q021220": {
+        "title": "q021220.pdf",
+        "menu-path": "traderesources/q021220",
+        "file": "content/q021220.pdf",
+        "weight": -100
+      },
+
+
+      "scheme": {
+        "title": "scheme.jpg",
+        "menu-path": "traderesources/scheme-c",
+        "file": "content/scheme.jpg",
+        "file-ru": "content/scheme.ru.jpg",
+        "file-kz": "content/scheme.kz.jpg",
+        "file-en": "content/scheme.en.jpg",
+        "weight": -100
+      },
+
+      "res-subsoil": {
+        "title": "Недропользование",
+        "menu-path": "traderesources/res-subsoil",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-1"
+      },
+
+      "res-hydrocarbon": {
+        "title": "1.1 Углеводороды",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon",
+        "page-title": "База данных по аукционам на предоставление права недропользования по углеводородам",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-hydrocarbon-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon/info-c",
+        "file": "content/res-hydrocarbon-info.htm",
+        "file-en": "content/res-hydrocarbon-info.en.htm",
+        "file-kz": "content/res-hydrocarbon-info.kz.htm",
+        "file-ru": "content/res-hydrocarbon-info.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-hydrocarbon-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Получить консультацию",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon/contacts-c",
+        "file": "content/res-hydrocarbon-call-center.htm",
+        "file-ru": "content/res-hydrocarbon-call-center.ru.htm",
+        "file-kz": "content/res-hydrocarbon-call-center.kz.htm",
+        "file-en": "content/res-hydrocarbon-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+
+      //"res-hydrocarbon-stat": {
+      //  "title": "Статистика",
+      //  "menu-path": "traderesources/res-subsoil/res-hydrocarbon/stat-c",
+      //  "file": "content/in-develop.ru.htm",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+      //"res-hydrocarbon-map": {
+      //  "title": "Карта",
+      //  "menu-path": "traderesources/res-subsoil/res-hydrocarbon/map-c",
+      //  "redirect-url": "https://lands.qoldau.kz/ru/lands-map/subsoils",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+
+
+      "res-tpi": {
+        "title": "1.2 Твердые полезные ископаемые",
+        "menu-path": "traderesources/res-subsoil/res-tpi",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-tpi-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-tpi/info-c",
+        "file": "content/res-tpi-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-tpi-stat": {
+        "title": "Статистика",
+        "menu-path": "traderesources/res-subsoil/res-tpi/stat-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-tpi-map": {
+      //  "title": "Карта",
+      //  "menu-path": "traderesources/res-subsoil/res-tpi/map-c",
+      //  "file": "content/in-develop.ru.htm",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+
+      "res-common": {
+        "title": "1.3 Общераспространенные полезные ископаемые",
+        "menu-path": "traderesources/res-subsoil/res-common",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-common-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-common/info-c",
+        "file": "content/res-common-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-common-stat": {
+        "file": "content/in-develop.ru.htm",
+        "menu-path": "traderesources/res-subsoil/res-common/stat-c",
+        "title": "Статистика",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "visible": true,
+        "weight": -100
+      },
+
+      "res-gas": {
+        "title": "1.4. Сжиженный нефтяной газ",
+        "menu-path": "traderesources/res-subsoil/res-gas",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-gas-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-gas/info-c",
+        "file": "content/res-gas-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-gas-stat": {
+        "file": "content/in-develop.ru.htm",
+        "menu-path": "traderesources/res-subsoil/res-gas/stat-c",
+        "title": "Статистика",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "visible": true,
+        "weight": -100
+      },
+
+      "res-land": {
+        "title": "Земельные ресурсы",
+        "menu-path": "traderesources/res-land",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-2"
+      },
+      "res-land-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-land/info-c",
+        "page-title": "Справка",
+        "file": "content/res-land-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-land-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-land/contacts-c",
+        "file": "content/res-land-call-center.htm",
+        "file-ru": "content/res-land-call-center.ru.htm",
+        "file-kz": "content/res-land-call-center.kz.htm",
+        "file-en": "content/res-land-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-land-stat": {
+      //  "file": "content/in-develop.ru.htm",
+      //  "menu-path": "traderesources/res-land/stat-c",
+      //  "title": "Статистика",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "visible": true,
+      //  "weight": -100
+      //},
+
+      "res-forest": {
+        "title": "Лесные ресурсы",
+        "menu-path": "traderesources/res-forest",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-3"
+      },
+      "res-forest-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-forest/info-c",
+        "file": "content/res-forest-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-animal": {
+        "title": "Животный мир",
+        "menu-path": "traderesources/res-animal",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-4"
+      },
+      "res-animal-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-animal/info-c",
+        "file": "content/res-animal-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-animal-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Получить консультацию",
+        "menu-path": "traderesources/res-animal/contacts-c",
+        "file": "content/res-animal-call-center.htm",
+        "file-ru": "content/res-animal-call-center.ru.htm",
+        "file-kz": "content/res-animal-call-center.kz.htm",
+        "file-en": "content/res-animal-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication": {
+        "title": "Ресурсы связи",
+        "menu-path": "traderesources/res-communication",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-5"
+      },
+
+      "res-communication-operators": {
+        "title": "5.1 Для операторов связи",
+        "menu-path": "traderesources/res-communication/operators",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-operators-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/operators/info-c",
+        //"file": "content/res-communication-info.ru.htm",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-operators-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/operators/stat-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-broadcasting": {
+        "title": "5.2 Для телерадиовещания",
+        "menu-path": "traderesources/res-communication/broadcasting",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-broadcasting-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/broadcasting/info-c",
+        "file": "content/res-communication-broadcasting.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/broadcasting/stat-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-registry": {
+        "title": "Реестр",
+        "page-title": "Реестр",
+        "menu-path": "traderesources/res-communication/broadcasting/registry-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-map": {
+        "title": "Карта",
+        "page-title": "Карта",
+        "menu-path": "traderesources/res-communication/broadcasting/map-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-radioservices": {
+        "title": "5.3 Для радиослужб",
+        "menu-path": "traderesources/res-communication/radioservices",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-radioservices-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/radioservices/info-c",
+        "file": "content/res-communication-radioservices.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/radioservices/stat-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-registry": {
+        "title": "Реестр",
+        "page-title": "Реестр",
+        "menu-path": "traderesources/res-communication/radioservices/registry-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-map": {
+        "title": "Карта",
+        "page-title": "Карта",
+        "menu-path": "traderesources/res-communication/radioservices/map-c",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-universal": {
+        "title": "5.4 Для универсальных услуг связи",
+        "menu-path": "traderesources/res-communication/universal-c",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      
+    },
+    "defaults": {
+      "project": "cabinetResourceSeller",
+      "html-pages-menu-path": "traderesources-info/help/{PageName}",
+      "ui-packages": "traderesources-html-pages;html-pages"
+    }
+  },
+
+  "cabinetResourceUser": {
+    "html-pages": {
+      "public-info": {
+        "title": "Информация",
+        "menu-path": "traderesources-info/help-u",
+        "file-ru": "content/startpage.ru.htm",
+        "file-kz": "content/startpage.kz.htm",
+        "file-en": "content/startpage.en.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "prikaz-270": {
+        "title": "prikaz-270.pdf",
+        "menu-path": "traderesources/prikaz-270-u",
+        "file": "content/prikaz-270.pdf",
+        "weight": -100
+      },
+
+      "scheme": {
+        "title": "scheme.jpg",
+        "menu-path": "traderesources/scheme-u",
+        "file": "content/scheme.jpg",
+        "file-ru": "content/scheme.ru.jpg",
+        "file-kz": "content/scheme.kz.jpg",
+        "file-en": "content/scheme.en.jpg",
+        "weight": -100
+      },
+
+      "res-subsoil": {
+        "title": "Недропользование",
+        "menu-path": "traderesources/res-subsoil",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-1"
+      },
+
+      "res-hydrocarbon": {
+        "title": "1.1 Углеводороды",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-hydrocarbon-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon/info-u",
+        "file": "content/res-hydrocarbon-info.htm",
+        "file-en": "content/res-hydrocarbon-info.en.htm",
+        "file-kz": "content/res-hydrocarbon-info.kz.htm",
+        "file-ru": "content/res-hydrocarbon-info.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-hydrocarbon-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Консультации по торгам природными ресурсами",
+        "menu-path": "traderesources/res-subsoil/res-hydrocarbon/contacts-u",
+        "file": "content/res-hydrocarbon-call-center.htm",
+        "file-ru": "content/res-hydrocarbon-call-center.ru.htm",
+        "file-kz": "content/res-hydrocarbon-call-center.kz.htm",
+        "file-en": "content/res-hydrocarbon-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-hydrocarbon-stat": {
+      //  "title": "Статистика",
+      //  "menu-path": "traderesources/res-subsoil/res-hydrocarbon/stat-u",
+      //  "file": "content/in-develop.ru.htm",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+      //"res-hydrocarbon-map": {
+      //  "title": "Карта",
+      //  "menu-path": "traderesources/res-subsoil/res-hydrocarbon/map-u",
+      //  "redirect-url": "https://lands.qoldau.kz/ru/lands-map/subsoils",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+
+
+      "res-tpi": {
+        "title": "1.2. Твердые полезные ископаемые",
+        "menu-path": "traderesources/res-subsoil/res-tpi",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-tpi-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-tpi/info-u",
+        "file": "content/res-tpi-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-tpi-stat": {
+        "title": "Статистика",
+        "menu-path": "traderesources/res-subsoil/res-tpi/stat-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-tpi-map": {
+      //  "title": "Карта",
+      //  "menu-path": "traderesources/res-subsoil/res-tpi/map-u",
+      //  "file": "content/in-develop.ru.htm",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "weight": -100,
+      //  "visible": true
+      //},
+
+      "res-common": {
+        "title": "1.3 Общераспространенные полезные ископаемые",
+        "menu-path": "traderesources/res-subsoil/res-common",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-common-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-subsoil/res-common/info-u",
+        "file": "content/res-common-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-common-stat": {
+        "file": "content/in-develop.ru.htm",
+        "menu-path": "traderesources/res-subsoil/res-common/stat-u",
+        "title": "Статистика",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "visible": true,
+        "weight": -100
+      },
+
+      "res-gas": {
+        "title": "1.4. Сжиженный нефтяной газ",
+        "menu-path": "traderesources/res-subsoil/res-gas",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-gas-info": {
+        "title": "Справка",
+        "page-title": "База данных по торгам сжиженным нефтяным газом",
+        "menu-path": "traderesources/res-subsoil/res-gas/info-u",
+        "file": "content/res-gas-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-gas-stat": {
+        "file": "content/in-develop.ru.htm",
+        "menu-path": "traderesources/res-subsoil/res-gas/stat-u",
+        "title": "Статистика",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "visible": true,
+        "weight": -100
+      },
+
+      "res-land": {
+        "title": "Земельные ресурсы",
+        "menu-path": "traderesources/res-land",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-2"
+      },
+      "res-land-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-land/info-u",
+        "file": "content/res-land-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-land-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-land/contacts-u",
+        "file": "content/res-land-call-center.htm",
+        "file-ru": "content/res-land-call-center.ru.htm",
+        "file-kz": "content/res-land-call-center.kz.htm",
+        "file-en": "content/res-land-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+      //"res-land-stat": {
+      //  "file": "content/in-develop.ru.htm",
+      //  "menu-path": "traderesources/res-land/stat-u",
+      //  "title": "Статистика",
+      //  "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+      //  "visible": true,
+      //  "weight": -100
+      //},
+
+      "res-forest": {
+        "title": "Лесные ресурсы",
+        "menu-path": "traderesources/res-forest",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-3"
+      },
+      "res-forest-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-forest/info-u",
+        "file": "content/res-forest-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-animal": {
+        "title": "Животный мир",
+        "menu-path": "traderesources/res-animal",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-4"
+      },
+      "res-animal-info": {
+        "title": "Справка",
+        "menu-path": "traderesources/res-animal/info-u",
+        "file": "content/res-animal-info.ru.htm",
+        "weight": -100,
+        "visible": true
+      },
+      "res-animal-contacts": {
+        "title": "Получить консультацию",
+        "page-title": "Получить консультацию",
+        "menu-path": "traderesources/res-animal/contacts-u",
+        "file": "content/res-animal-call-center.htm",
+        "file-ru": "content/res-animal-call-center.ru.htm",
+        "file-kz": "content/res-animal-call-center.kz.htm",
+        "file-en": "content/res-animal-call-center.en.htm",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication": {
+        "title": "Ресурсы связи",
+        "menu-path": "traderesources/res-communication",
+        "weight": 10,
+        "visible": true,
+        "is-grouping-menu": true,
+        "icon-css-class": "yodic yodic-numeric-square-5"
+      },
+
+      "res-communication-operators": {
+        "title": "5.1 Для операторов связи",
+        "menu-path": "traderesources/res-communication/operators",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-operators-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/operators/info-u",
+        //"file": "content/res-communication-info.ru.htm",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-operators-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/operators/stat-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-broadcasting": {
+        "title": "6.2 Для телерадиовещания",
+        "menu-path": "traderesources/res-communication/broadcasting",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-broadcasting-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/broadcasting/info-u",
+        "file": "content/res-communication-broadcasting.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/broadcasting/stat-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-registry": {
+        "title": "Реестр",
+        "page-title": "Реестр",
+        "menu-path": "traderesources/res-communication/broadcasting/registry-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-broadcasting-map": {
+        "title": "Карта",
+        "page-title": "Карта",
+        "menu-path": "traderesources/res-communication/broadcasting/map-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+
+      "res-communication-radioservices": {
+        "title": "6.3 Для радиослужб",
+        "menu-path": "traderesources/res-communication/radioservices",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      "res-communication-radioservices-info": {
+        "title": "Справка",
+        "page-title": "Справка",
+        "menu-path": "traderesources/res-communication/radioservices/info-u",
+        "file": "content/res-communication-radioservices.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-stat": {
+        "title": "Статистика",
+        "page-title": "Статистика",
+        "menu-path": "traderesources/res-communication/radioservices/stat-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-registry": {
+        "title": "Реестр",
+        "page-title": "Реестр",
+        "menu-path": "traderesources/res-communication/radioservices/registry-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-radioservices-map": {
+        "title": "Карта",
+        "page-title": "Карта",
+        "menu-path": "traderesources/res-communication/radioservices/map-u",
+        "file": "content/in-develop.ru.htm",
+        "ui-packages": "traderesources-html-pages;hide-page-title;html-pages",
+        "weight": -100,
+        "visible": true
+      },
+      "res-communication-universal": {
+        "title": "6.4 Для универсальных услуг связи",
+        "menu-path": "traderesources/res-communication/universal-u",
+        "weight": -100,
+        "visible": true,
+        "is-grouping-menu": true
+      },
+      
+    },
+    "defaults": {
+      "project": "cabinetResourceUser",
+      "html-pages-menu-path": "traderesources-info/help/{PageName}",
+      "ui-packages": "traderesources-html-pages;html-pages"
+    }
+  }
+
+
+}

@@ -1,0 +1,38 @@
+﻿.btn-color-type-layer {
+    background-image: url(img/btn-field-color.png);
+}
+
+.color-type-layers {
+    top: 6.5em;
+    right: .5em;
+}
+
+.gis-color-type-panel {
+    top: 5em;
+    right: 4em;
+    display: block;
+    width: 150px;
+    position: absolute;
+    background: rgba(255,255,255,0.9);
+    -webkit-box-shadow: 0px 1px 3px 1px #AFAFAF;
+    -moz-box-shadow: 0px 1px 3px 1px #AFAFAF;
+    box-shadow: 0px 1px 3px 1px #AFAFAF;
+    z-index: 10;
+}
+
+.gis-color-type-item {
+    vertical-align: middle;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.gis-color-type-item.selected-item {
+    background-color: rgba(100,100,100,0.9);
+    cursor: default;
+    color: white;
+}
+
+.gis-color-type-item:not(.selected-item):hover {
+    background-color: rgba(200,200,200,0.5);
+}
+

@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:11441",
+      "sslPort": 32441
+    }
+  },
+  "profiles": {
+    "LandTradesJobs Development": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:32441/jobs/ping",
+      "applicationUrl": "https://localhost:32441;http://localhost:11441",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "LandTradesJobs Staging": {
+      "commandName": "Project",
+      //"launchBrowser": true,
+      "launchUrl": "https://localhost:32441/jobs/ping",
+      "applicationUrl": "https://localhost:32441;http://localhost:11441",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      }
+    },
+    "LandTradesJobs Production": {
+      "commandName": "Project",
+      //"launchBrowser": true,
+      "launchUrl": "https://localhost:32441/jobs/ping",
+      "applicationUrl": "https://localhost:32441;http://localhost:11441",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}

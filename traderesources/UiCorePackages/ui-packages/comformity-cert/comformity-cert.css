@@ -1,0 +1,87 @@
+﻿.ss-services-body {
+        margin: 40px !important;
+        padding: 0 !important;
+        font-size: 14pt !important;
+        font-family: 'Times New Roman';
+    }
+
+.cert-logos {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-around;
+    place-items: flex-start;
+}
+
+.ktrm-logo {
+    position: sticky;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.nca-logo {
+    position: sticky;
+    transform: translateX(-50%);
+    margin-left: 60px;
+}
+
+.qr-logo{
+    float: right;
+}
+
+.ops-attestat {
+    position: sticky;
+}
+
+.ml-160 {
+    margin-left: 165px;
+}
+
+.ss-services-body .page {
+    position: relative !important;
+}
+
+.ss-services-body .text-center {
+    text-align: center !important;
+}
+
+.ss-services-body .text-bold {
+    font-weight: bold !important;
+}
+
+.ss-services-body .text-font-12 {
+    font-size: 12pt !important;
+}
+
+.ss-services-body .text-font-22 {
+    font-size: 22pt !important;
+}
+
+.ss-services-body .text-font-24 {
+    font-size: 24pt !important;
+}
+
+.ss-services-body td {
+    vertical-align: top !important;
+}
+
+.ss-services-body .qr2 > img {
+    height: 50px;
+}
+
+.ss-services-body .img-center {
+    text-align: center !important;
+}
+
+.ss-services-body td {
+    vertical-align: top !important;
+}
+
+.ss-services-body .qr1 > img {
+    height: 100px;
+}
+
+.ss-services-body .wmi-footer {
+    /*position: absolute !important;*/
+    bottom: 0 !important;
+    font-size: 8pt !important;
+}

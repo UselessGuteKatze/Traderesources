@@ -1,0 +1,190 @@
+﻿main {
+    margin: 0 auto;
+}
+
+.main-alb {
+    width: 948px;
+    margin: 0 auto;
+}
+
+.qrcode {
+    width: 70px;
+    padding-right: 10px;
+}
+
+.title1 {
+    padding: 40px 20px 20px 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.title2 {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.title3 {
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tbl-title {
+    width: 260px;
+    padding: 5px;
+    font-weight: bold;
+    vertical-align: baseline;
+}
+
+.tbl-title2 {
+    width: 170px;
+    padding: 5px;
+    font-weight: bold;
+    vertical-align: baseline;
+}
+
+.tbl-title3 {
+    width: 145px;
+    padding: 5px;
+    font-weight: bold;
+    vertical-align: baseline;
+}
+
+.tbl-title4 {
+    width: 580px;
+    padding: 5px;
+    font-weight: bold;
+    vertical-align: baseline;
+}
+
+.tbl-td-padd {
+    padding: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.vert {
+    vertical-align: middle;
+}
+
+.tbl-tr-bg {
+    background: #f1f0f0;
+}
+
+.tbl-doc-icon {
+    width: 30px;
+    padding: 5px;
+    vertical-align: baseline;
+}
+
+.tbl-docicon-size {
+    width: 20px;
+}
+
+.tbl {
+    border-color: #f0f8ff;
+}
+
+.sign {
+    font-size: 14px;
+}
+
+.apl-txt {
+    font-weight: bold;
+}
+
+.kz-ver, .ru-ver {
+    width: 49%
+}
+.kz-ver {
+    float:left;
+}
+.ru-ver {
+    float:right;
+}
+
+.tbl2 {
+    font-size: 12px;
+    border-color: #f0f8ff;
+}
+
+.tbl3 {
+    margin: 40px 0 0 0;
+    border-color: #f0f8ff;
+}
+
+.txt-just {
+    text-align: justify;
+}
+
+.appl-title {
+    width: 250px;
+    padding: 5px;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.appl-text {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.txt-ind {
+    text-indent: 25px;
+    display: table-header-group;
+    font-size: 14px;
+}
+
+.txt-ind-req {
+    text-indent: 0px;
+    display: table-header-group;
+    font-size: 14px;
+    text-align: left;
+}
+
+.txt-tbl-td {
+    padding-top: 15px;
+}
+
+.requisites-title {
+    font-weight: bold;
+    padding-top: 18px;
+    text-align: center;
+}
+
+.agreement-requisites {
+    display: inline-table;
+}
+
+.requisites-header {
+    font-weight: bold;
+    text-align: center;
+}
+
+/*.requisites-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}*/
+
+.requisites-body div p {
+    padding-bottom: 4px;
+}
+
+.requisites-body div .company-name {
+    font-weight: bold;
+}
+
+.requisites-body div .role {
+    font-weight: bold;
+}
+
+.requisites-body div .full-name {
+    font-weight: bold;
+    text-transform: uppercase;
+}

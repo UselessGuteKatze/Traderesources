@@ -1,0 +1,6 @@
+{
+  "require": [
+    "jquery.core",
+    "ol6"
+  ]
+}

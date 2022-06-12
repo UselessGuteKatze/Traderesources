@@ -1,0 +1,4 @@
+---
+dependencies:
+  #- role: kazcert
+  - role: iac-root-certs

@@ -1,0 +1,4 @@
+- name: Restart HeartBeat
+  service:
+    name: heartbeat-elastic
+    state: restarted

@@ -1,0 +1,100 @@
+﻿.head-container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.head-table {
+    width: 100%;
+}
+
+.head-black-row {
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.head-logo {
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .head-logo img {
+        display: inline-block;
+        vertical-align: middle;
+        width: 90px;
+        padding-left: 20px;
+    }
+
+.head-text {
+    height: 60px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.head-header {
+    font-size: 20px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #34373c;
+}
+
+.head-subheader {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.head-data {
+    background-size: cover;
+    background-position: center;
+    padding: 10px;
+    display: flex;
+    width: 100%;
+}
+
+.head-data-text {
+    padding-left: 20px;
+    float: left;
+}
+
+.head-data-qr-head-container {
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    padding-left: 10px;
+}
+
+.head-data-qr {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+}
+
+    .head-data-qr img {
+        width: 90px;
+    }
+
+.head-data-qr-link {
+    display: block;
+    color: #353535;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+    .head-data-qr-link a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.head-right-text {
+    text-align: right;
+    padding: 30px 0;
+    font-weight: 600;
+}
+
+.text-center {
+    text-align: center;
+}

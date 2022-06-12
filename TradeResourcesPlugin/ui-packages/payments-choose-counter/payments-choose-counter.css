@@ -1,0 +1,8 @@
+﻿.check-boxes-box-item-element {
+    margin: 0;
+    height: 100%;
+}
+
+.check-boxes-box-item:checked + label {
+    background: #727cf5;
+}

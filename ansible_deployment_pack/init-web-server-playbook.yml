@@ -1,0 +1,18 @@
+- name: Install qazcertMITM into trusted certificates
+  include: install-qazcert-playbook.yml
+
+- name: Install serverslan certs into trusted certificates
+  include: install-serverslan-certs-playbook.yml
+
+- hosts: "{{ target }}"
+  pre_tasks:
+    - import_tasks: init-vars-tasks.yml
+  roles:
+    - aspnet-core-web
+
+- name: Copy wkhtmltopdf to /usr/bin
+  copy:
+    src: "{{playbook_dir}}/files/wkhtmltopdf"
+    dest: /usr/bin/wkhtmltopdf
+    mode: 0754
+    

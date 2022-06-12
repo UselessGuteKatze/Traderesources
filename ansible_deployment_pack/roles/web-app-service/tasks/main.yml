@@ -1,0 +1,448 @@
+- name: Dotnet webserver
+  vars:
+    webappServices:
+      service1:
+        serviceName: "{{ appName }}-1.service"
+        description: "{{ appDescription }} (1)"
+        entryDll: "{{ appEntryPoint }}"
+        environment: "{{ appEnvironment }}"
+        vault:
+          serverUrl: "{{ vault.serverUrl }}"
+          secretPath: "{{ vault.secretPath }}"
+          userName: "{{ vault.userName }}"
+          userPassword: "{{ vault.userPassword }}"
+        webDir: "{{ appRootDir }}/{{appName}}-1"
+        webHomeDir: "{{ appRootDir }}/{{appName}}-1"
+        url: http://localhost:{{ localhostPort + 0  }}
+        warmupUrl: http://localhost:{{ localhostPort + 0  }}/{{ warmupPath|regex_replace('^\\/', '') }}
+        warmupHost: "{{ warmupHost }}"
+        port: "{{ localhostPort + 0  }}"
+      service2:
+        serviceName: "{{ appName }}-2.service"
+        description: "{{ appDescription }} (2)"
+        entryDll: "{{ appEntryPoint }}"
+        environment: "{{ appEnvironment }}"
+        vault:
+          serverUrl: "{{ vault.serverUrl }}"
+          secretPath: "{{ vault.secretPath }}"
+          userName: "{{ vault.userName }}"
+          userPassword: "{{ vault.userPassword }}"
+        webDir: "{{ appRootDir }}/{{appName}}-2"
+        webHomeDir: "{{ appRootDir }}/{{appName}}-2"
+        url: http://localhost:{{ localhostPort + 1  }}
+        warmupUrl: http://localhost:{{ localhostPort + 1  }}/{{ warmupPath|regex_replace('^\\/', '') }}
+        warmupHost: "{{ warmupHost }}"
+        port: "{{ localhostPort + 1 }}"
+      app_runtime: "{{app_runtime | default('dotnet')}}"
+      nginx:
+        serverConfFile: "/etc/nginx/conf.d/{{ appName }}-server.conf"
+        serverLocationConfFileName: "{{ appName }}-server.conf.location"
+        serverLocationConfFile: "/etc/nginx/conf.d/{{ appName }}-server.conf.location"
+        defaultServiceUrl: http://localhost:{{ localhostPort + 0  }}
+        sslCertificatePubRootDir: "/etc/pki/nginx"
+        sslCertificatePubLocation: "/etc/pki/nginx/{{ appName }}.crt"
+        sslCertificateKeyRootDir: "/etc/pki/nginx/private"
+        sslCertificateKeyLocation: "/etc/pki/nginx/private/{{ appName }}.key"
+  block:
+    - name: Init systemd services
+      block:
+        - include_role:
+            name: nginx
+        # - include_role:
+        #     name: kazcert
+        - include_role:
+            name: iac-root-certs
+       
+        - name: Init web app directories
+          file:
+            state: directory
+            path: "{{ item.webDir }}"
+            owner: devops
+            group: devops
+            mode: '0777'
+          with_items:
+            - "{{ webappServices.service1 }}"
+            - "{{ webappServices.service2 }}"
+
+        - name: Init web app log directory
+          file:
+            state: directory
+            path: /var/log/web
+            owner: devops
+            group: devops
+            mode: '0774'
+
+        - name: Init default error pages directory
+          file:
+            state: directory
+            path: "{{appRootDir}}/nginx-default-pages"
+            owner: nginx
+            group: nginx
+            mode: '0750'
+
+        - name: Create 40x.html and 50x.html
+          template:
+            src: "{{ item.template }}"
+            dest: "{{appRootDir}}/nginx-default-pages/{{ item.name }}"
+            owner: nginx
+            group: nginx
+          with_items:
+            - { name: "40x.html", template: "templates/40x.html.j2" }
+            - { name: "50x.html", template: "templates/50x.html.j2" }
+
+        - name: Configure selinux (custom pages)
+          shell: |
+            setsebool -P httpd_can_network_connect on
+            chcon -Rt httpd_sys_content_t {{appRootDir}}/nginx-default-pages/
+
+        - name: Init dotnet app systemd services
+          template:
+            src: templates/webapp.service.dotnet.j2
+            dest: "/etc/systemd/system/{{ item.serviceName }}"
+          with_items:
+            - "{{ webappServices.service1 }}"
+            - "{{ webappServices.service2 }}"
+          when: webappServices.app_runtime == "dotnet"
+
+        - name: Init java app systemd services
+          template:
+            src: templates/webapp.service.java.j2
+            dest: "/etc/systemd/system/{{ item.serviceName }}"
+          with_items:
+            - "{{ webappServices.service1 }}"
+            - "{{ webappServices.service2 }}"
+          when: webappServices.app_runtime == "java"
+
+        - name: Copy wkhtmltopdf to /usr/bin
+          copy:
+            src: "files/wkhtmltopdf"
+            dest: /usr/bin/wkhtmltopdf
+            mode: '0754'
+            owner: devops
+            group: root
+
+        - name: Install libX11.x86_64 libXext.x86_64 libXrender.x86_64 libpng.x86_64 libgdiplus
+          yum:
+            name:
+              - libX11
+              - libXext
+              - libXrender
+              - libpng
+              - libgdiplus
+            state: latest
+          when: ansible_os_family=="RedHat"
+
+        - name: Ensure unzip installed
+          package:
+            name: unzip
+            state: present
+
+        - name: Nginx configuration
+          block:
+            - name: Ssl certificates
+              block:
+                - name: Ensures {{webappServices.nginx.sslCertificatePubRootDir}} dir exists
+                  file:
+                    path: "{{webappServices.nginx.sslCertificatePubRootDir}}"
+                    state: directory
+                - name: Copy ssl pub certificate
+                  copy:
+                    src: "{{ sslCertificate.pub }}"
+                    dest: "{{ webappServices.nginx.sslCertificatePubLocation }}"
+                    mode: "0600"
+
+                - name: Ensures {{webappServices.nginx.sslCertificateKeyRootDir}} dir exists
+                  file:
+                    path: "{{webappServices.nginx.sslCertificateKeyRootDir}}"
+                    state: directory
+
+                - name: Copy ssl private certificate
+                  copy:
+                    src: "{{ sslCertificate.key }}"
+                    dest: "{{ webappServices.nginx.sslCertificateKeyLocation }}"
+                    mode: "0600"
+
+              when: sslCertificate is defined and sslCertificate is not none
+
+            - name: Copy server configuration
+              template:
+                src: templates/nginx_server.conf.j2
+                dest: "{{ webappServices.nginx.serverConfFile }}"
+
+            - name: Copy server location default configuration
+              template:
+                src: templates/nginx_server.conf.location.j2
+                dest: "{{ webappServices.nginx.serverLocationConfFile }}"
+                force: no
+
+            - name: Reload nginx
+              service:
+                name: nginx
+                state: reloaded
+
+            - name: Configure firewalld
+              block:
+                - name: Open {{ worldPort }} port
+                  firewalld:
+                    port: "{{ worldPort }}/tcp"
+                    zone: public
+                    permanent: yes
+                    immediate: yes
+                    state: enabled
+
+                - name: Restart firewalld
+                  service:
+                    name: firewalld
+                    state: restarted
+
+                - name: Ensure libsemanage-python installed
+                  package:
+                    name: libsemanage-python
+                    state: present
+
+                - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+                  seboolean:
+                    name: httpd_can_network_connect
+                    state: yes
+                    persistent: yes
+                  when: ansible_selinux != "false"
+      when: initWebServer is defined and initWebServer == true
+
+    - name: Init elk
+      block:
+       # - name: Add GPG-KEY-elasticsearch Centos
+       #   rpm_key:
+       #     state: present
+       #     key: https://nexus.aq.servers.lan:8443/repository/proxy-all/GPG-KEY-elasticsearch
+       #   when: ansible_os_family=="RedHat"
+
+        - name: Add GPG-KEY-elasticsearch UBUNTU
+          apt_key:
+            state: present
+            url: https://nexus.aq.servers.lan:8443/repository/proxy-all/GPG-KEY-elasticsearch
+          when: ansible_os_family=="Debian"
+
+        - name: Add elk repo Centos
+          template:
+            src: elk.repo.j2
+            dest: /etc/yum.repos.d/elk.repo
+          when: ansible_os_family=="RedHat"
+
+        - name: Add elk repo UBUNTU
+          template:
+            src: elk-apt.repo.j2
+            dest: /etc/apt/sources.list.d/elk-apt.list
+          when: ansible_os_family=="Debian"
+
+        - name: install journalbeat Centos
+          yum:
+            name:
+              - journalbeat
+            state: latest
+            enablerepo: elk
+          when: ansible_os_family=="RedHat"
+
+        - name: install journalbeat UBUNTU
+          apt:
+            name:
+              - journalbeat
+            state: latest
+            update_cache: yes
+          when: ansible_os_family=="Debian"
+
+        - name: Configure journalbeat
+          replace:
+            path: /etc/journalbeat/journalbeat.yml
+            regexp: "{{item.1}}"
+            replace: "{{item.2}}"
+            backup: yes
+          with_items:
+          - { 1: '^(output\.elasticsearch\:)$', 2: '#output.elasticsearch:' }
+          - { 1: '^(\s\shosts\:\s\[\"localhost\:9200\"\])$', 2: '  #hosts: ["localhost:9200"]' }
+          - { 1: '^(\#output\.logstash\:)$', 2: 'output.logstash:' }
+          - { 1: '^(\s\s\#hosts\:\s\[\"localhost\:5044\"\])$', 2: '  hosts: ["kibana.aq.servers.lan:5044"]' }
+          - { 1: '^(\s\s\#include\_matches\:\s\[\])$', 2: '  include_matches:' }
+
+        - name: Configure journalbeat CENTOS
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: '^\output\.logstash\:'
+          with_items:
+            - '  loadbalance: true'
+          when: ansible_os_family=="RedHat"
+
+        - name: Configure journalbeat UBUNTU
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: 'output.logstash:'
+          with_items:
+            - '  loadbalance: true'
+          when: ansible_os_family=="Debian"
+
+        - name: "Configure service {{ appName }} to monitoring"
+          lineinfile:
+            path: /etc/journalbeat/journalbeat.yml
+            line: '{{item}}'
+            insertafter: '^\s\sinclude\_matches\:'
+          with_items:
+            - '   - "systemd.unit={{ appName }}-1.service"'
+            - '   - "systemd.unit={{ appName }}-2.service"'
+
+        - name: Restart service journalbeat
+          systemd:
+            name: journalbeat
+            state: restarted
+            enabled: yes
+      when: initWebServer is defined and initWebServer == true
+
+    - name: Deploy app
+      block:
+        - name: Gather systemd services facts
+          service_facts:
+
+        - name: Check services are installed
+          fail:
+            msg: "{{ item.serviceName }} is not installed"
+          when: ansible_facts.services[item.serviceName] is not defined
+          with_items:
+            - "{{ webappServices.service1 }}"
+            - "{{ webappServices.service2 }}"
+
+        - name: "forceUpdateServiceNumber"
+          debug:
+            var: forceUpdateServiceNumber
+
+        - name: Auto detect service to update
+          block:
+            - name: Check that only one service currently running (1)
+              fail:
+                msg: "Both services are running"
+              when:
+                - ansible_facts.services[webappServices.service1.serviceName].state == "running"
+                - ansible_facts.services[webappServices.service2.serviceName].state == "running"
+
+            - name: Check that only one service currently running (2)
+              fail:
+                msg: "Both services are dead"
+              when:
+                - ansible_facts.services[webappServices.service1.serviceName].state != "running"
+                - ansible_facts.services[webappServices.service2.serviceName].state != "running"
+            - name: Update service number 1
+              set_fact:
+                serviceToUpdate: "{{ webappServices.service1 }}"
+                serviceToStop: "{{ webappServices.service2 }}"
+              when: ansible_facts.services[webappServices.service2.serviceName].state == "running"
+
+            - name: Update service number 2
+              set_fact:
+                serviceToUpdate: "{{ webappServices.service2 }}"
+                serviceToStop: "{{ webappServices.service1 }}"
+              when: ansible_facts.services[webappServices.service1.serviceName].state == "running"
+
+          when: forceUpdateServiceNumber == -1 or forceUpdateServiceNumber == "-1"
+
+        - name: Forced service update
+          block:
+            - name: Update service number 1
+              set_fact:
+                serviceToUpdate: "{{ webappServices.service1 }}"
+                serviceToStop: "{{ webappServices.service2 }}"
+              when: forceUpdateServiceNumber == 1 or forceUpdateServiceNumber == "1"
+
+            - name: Update service number 2
+              set_fact:
+                serviceToUpdate: "{{ webappServices.service2 }}"
+                serviceToStop: "{{ webappServices.service1 }}"
+              when: forceUpdateServiceNumber == 2
+          when: forceUpdateServiceNumber != -1 and forceUpdateServiceNumber != "-1"
+
+        - name: "Service to update"
+          debug:
+            var: serviceToUpdate
+            # verbosity: 4
+
+        - name: "Service to stop"
+          debug:
+            var: serviceToStop
+            # verbosity: 4
+
+        - name: Transfer artifacts from localhost
+          copy:
+            src: "{{ deployArtifactsPath }}"
+            dest: "{{ appRootDir }}/{{ appName }}_deploy.zip"
+            #backup: yes
+          when: deployArtifactsPath is defined
+
+        - name: Stop updating service if it's running
+          service:
+            name: "{{ serviceToUpdate.serviceName }}"
+            state: stopped
+            enabled: no
+
+        - name: Wait for service stopping (20 seconds)
+          wait_for:
+            timeout: 20
+          when: ansible_facts.services[serviceToUpdate.serviceName].state == "running"
+
+        - name: Clear previous artifacts files and directories
+          file:
+            state: "{{ item }}"
+            path: "{{ serviceToUpdate.webDir }}"
+            owner: devops
+            group: devops
+            mode: '0777'
+          with_items:
+            - absent
+            - directory
+
+        - name: Unarchieve artifacts
+          unarchive:
+            src: "{{ appRootDir }}/{{ appName }}_deploy.zip"
+            dest: "{{ serviceToUpdate.webDir }}"
+            remote_src: yes
+            owner: devops
+            group: devops
+
+        - name: Start updating service
+          service:
+            name: "{{ serviceToUpdate.serviceName }}"
+            state: restarted
+            enabled: yes
+
+        - name: Wait for service starting... (from 10 to 300 seconds)
+          wait_for:
+            port: "{{ serviceToUpdate.port }}"
+            delay: 10
+            timeout: 300
+
+        - name: Check if service is started and warmup cache
+          uri:
+            url: "{{ serviceToUpdate.warmupUrl }}"
+            headers:
+              host: "{{ serviceToUpdate.warmupHost }}"
+
+
+        - name: Update nginx configuration
+          block:
+            - name: Update server location
+              copy:
+                content: "proxy_pass {{ serviceToUpdate.url }};"
+                dest: "{{ webappServices.nginx.serverLocationConfFile }}"
+            - name: Reload nginx
+              service:
+                name: nginx
+                state: reloaded
+
+        - name: Wait before stopping other service, let already running queries finish (60 seconds)
+          wait_for:
+            timeout: 60
+          when: ansible_facts.services[serviceToStop.serviceName].state == "running"
+
+        - name: Stop other service
+          service:
+            name: "{{ serviceToStop.serviceName }}"
+            state: stopped
+            enabled: no
+      when: deployApp is defined and deployApp == true

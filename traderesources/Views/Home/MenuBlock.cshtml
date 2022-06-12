@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Mvc.Routing;
+@using Microsoft.AspNetCore.Html;
+@using Yoda.Interfaces;
+@using Yoda.Interfaces.Menu;
+@using Microsoft.AspNetCore.Routing;
+@model Yoda.Application.Models.MenuInfo;
+
+@functions {
+    public void Render(IEnumerable<Yoda.Interfaces.Menu.Tree.MenuItem> menuItems, bool root) {
+        if (menuItems == null || !menuItems.Any(item => (item.ModuleMenu != null) && (item.ModuleMenu.NativeMenuLink.MenuType == MenuType.Normal))){
+            return;
+        }
+        var navMenuClass = root?"id='navigation-menu' class='nav navbar-nav'":"class='dropdown-menu'";
+
+        Write(new HtmlString(string.Format("<ul {0}>", navMenuClass)));
+        foreach (var link in menuItems) {
+            if(link.ModuleMenu == null)
+                continue;
+            if(link.ModuleMenu.NativeMenuLink.MenuType!=MenuType.Normal)
+                continue;
+
+            var isDropDownMenu = (link.Childs != null && link.Childs.Any(child => child.ModuleMenu != null && child.ModuleMenu.NativeMenuLink.MenuType == MenuType.Normal));
+            var dropDownClass = isDropDownMenu ? "dropdown" : string.Empty;
+            if (link.IsNotEmpty) {
+                if (link.ModuleMenu.NativeMenuLink.EnabledFunc(Model.RequestContext)) {
+                    WriteLiteral(string.Format("<li class='{0} {1}'>", dropDownClass, link.ModuleMenu.NativeMenuLink.CssClass + string.Empty));
+                    var url = Html.YodaAction(link.ModuleMenu.ModuleName, link.ModuleMenu.NativeMenuLink.Name, new RouteValueDictionary(link.ModuleMenu.NativeMenuLink.RawQueryDefaultParams));
+                    WriteLiteral(string.Format("<a href='{0}' class='dropdown-toggle'>{1}{2}</a>", url, link.Text, isDropDownMenu?" <span class=\"caret\"></span>":string.Empty));
+                    Render(link.Childs, false);
+                    WriteLiteral("</li>");
+                }
+            } else {
+                var childAction = link.FindFirstChildAction(Model.RequestContext);
+                   if (childAction != null) {
+                       if (link.ModuleMenu.NativeMenuLink.EnabledFunc(Model.RequestContext)) {
+                           WriteLiteral(string.Format("<li class='{0}'>", dropDownClass));
+                           WriteLiteral(string.Format("<a href='#'>{0}{1}</a>", link.Text, isDropDownMenu?" <span class=\"caret\" ></span>":string.Empty));
+                           Render(link.Childs, false);
+                           WriteLiteral("</li>");
+                       }
+                   }
+            }
+        }
+        Write(new HtmlString("</ul>"));
+    }
+}
+
+<div id="yoda-main-menu-wrapper">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Скрыть/Раскрыть навигацию</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            @{
+                if(Model!=null && Model.Menu!=null){
+                    Render(Model.Menu.Items, true);
+                }
+            }
+        </div>
+    </div>
+</div>

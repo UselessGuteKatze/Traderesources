@@ -1,0 +1,20 @@
+[Unit]
+Description={{ item.description }}
+DefaultDependencies=no
+Wants=network.target # network is required
+After=network.target
+
+[Service]
+WorkingDirectory={{ item.serviceHomeDir }}
+ExecStart=/usr/bin/java -Xmx5120m -Djava.net.useSystemProxies=true -Dfile.encoding=utf-8 -jar {{ item.serviceDir }}/{{ item.entryDll }}
+Restart=always
+RestartSec=10
+SyslogIdentifier={{ item.serviceName }}
+User=devops
+Group=devops
+
+Environment=JAVA_ENVIRONMENT={{ item.environment }}
+Environment=ListenUrl={{ item.listenUrl }}
+
+[Install]
+WantedBy=multi-user.target

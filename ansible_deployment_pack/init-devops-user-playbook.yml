@@ -1,0 +1,28 @@
+# This playbook must be run under root, because we need to connect to remote nodes
+
+- hosts: "{{ target }}"
+  tasks: 
+    - name: Install user to all nodes
+      user:
+        name: devops
+        createhome: yes
+        groups: wheel
+        state: present
+    
+    - name: Distribute authorized key to all nodes
+      authorized_key: 
+        user: devops
+        state: present
+        key: "{{ lookup('file', '/home/devops/.ssh/id_rsa.pub') }}"
+    
+    - name: Disable password confirmation for DevOps
+      template:
+        src: templates/sudoers.d/devops.j2
+        dest: /etc/sudoers.d/devops
+        validate: /usr/sbin/visudo -cf %s
+	
+    - name: Set journalctl.Storage param to auto
+      lineinfile:
+        path: /etc/systemd/journald.conf
+        regexp: '^Storage='
+        line: Storage=auto

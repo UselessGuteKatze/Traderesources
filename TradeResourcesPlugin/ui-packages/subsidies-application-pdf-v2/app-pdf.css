@@ -1,0 +1,101 @@
+﻿body {
+    font-family: 'ibm-plex';
+    font-size: 14px;
+}
+
+.app-content {
+    font-family: 'ibm-plex';
+    font-size: 14px;
+}
+
+.app-header {
+    text-align: center;
+    font-size: 18px;
+}
+
+.app-section {
+
+}
+.app-section .section-title {
+    font-weight: bold;
+}
+
+.app-container {
+    max-width: 1000px;
+    border: 1px solid gray;
+    padding: 15px;
+}
+
+.app-term {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.sign-content {
+    min-height: 200px;
+    border: 1px solid #4b4b4b;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.applicant-sign, .official-org-sign, .manufacturer-org-sign {
+    page-break-inside: avoid !important
+}
+
+
+.app-system-info {
+    border-bottom: 2px solid #4b4b4b;
+    background-color: #dcdcdc;
+    padding: 10px;
+    padding: 10px;
+    font-size: 10px;
+}
+
+.app-system-info table { width: 100%; }
+
+.app-system-info .label { font-weight: bold; }
+
+
+.app-system-info-col1 {
+    vertical-align: top;
+    width: 450px;
+    padding: 0;
+}
+
+.app-system-info-col2 {
+    border-left: 1px solid #7d7d7d;
+    text-align: right;
+    vertical-align: top;
+    padding: 0;
+}
+
+
+table, tr, td, th, tbody, thead, tfoot {
+    page-break-inside: avoid !important;
+}
+
+.app-header-official-org {
+    padding-left: 50%;
+    text-align: right;
+}
+
+
+
+.tiny-text {
+    font-size:9px;
+}
+
+.table-text-header-small {
+    font-size: 12px;
+}
+
+.logo-png {
+    background-image: url(images/report-logo.svg);
+    background-size: cover;
+}
+
+.qr-png {
+    background-image: url(images/report-qr.svg);
+    background-size: cover;
+}
+

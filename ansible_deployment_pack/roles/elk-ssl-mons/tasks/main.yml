@@ -1,0 +1,5 @@
+- name: Create config file for HeartBeat
+  template:
+    src: elk-heartbeat-conf.j2
+    dest: /etc/heartbeat/monitors.d/{{DOMAIN_PREFIX|default('')}}-{{ proxyName }}.yml
+  notify: Restart HeartBeat

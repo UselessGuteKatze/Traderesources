@@ -1,0 +1,16 @@
+- name: "Install trust CA certificates"
+  template:
+    src: templates/{{ item }}
+    dest: /etc/pki/ca-trust/source/anchors/{{ item }}
+  with_items:
+    - DigiSert.crt
+    - SectigoRSA.crt
+    - thawteRSA.crt
+    - UserTrust.crt
+    - nca_rsa.crt
+    - root_rsa.crt
+  when: ansible_os_family=="RedHat"
+
+- name: Update ca certificate
+  command: update-ca-trust
+  when: ansible_os_family=="RedHat"

@@ -1,0 +1,54 @@
+﻿
+.stat-card-body {
+    background-color: #f5f5f5;
+    padding: 15px 30px;
+    border-radius: 8px;
+}
+
+.m-card {
+    display: block;
+    border-radius: 8px;
+    padding: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    color: #010101;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
+    height: 150px;
+}
+
+.m-card-header {
+    font-size: 32px;
+    font-weight: bold;
+    color: #186FD6;
+    text-align:center;
+}
+
+.m-card-red .m-card-header, .m-card-red .m-card-subheader {
+    color: #F11313 !important;
+}
+
+.m-card-orange .m-card-header, .m-card-orange .m-card-subheader {
+    color: #FFA500 !important;
+}
+
+.m-card-green .m-card-header, .m-card-green .m-card-subheader {
+    color: #008000 !important;
+}
+
+.m-card-subheader {
+    color: #3E3E3E;
+    max-width: 300px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    height: 55px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 18px;
+    text-align: center;
+}
+
+.pt-15 {
+    padding-top: 15px
+}

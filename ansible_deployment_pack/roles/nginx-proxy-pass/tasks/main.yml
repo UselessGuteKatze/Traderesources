@@ -1,0 +1,139 @@
+- name: Nginx Proxy Pass
+  vars:
+    proxyPass:
+      nginx:
+        serverConfFile: "/etc/nginx/conf.d/{{ proxyName }}-server.conf"
+        serverLocationConfFileName: "{{ proxyName }}-server.conf.location"
+        serverLocationConfFile: "/etc/nginx/conf.d/{{ proxyName }}-server.conf.location"
+        proxyToUrl: "{{proxyToUrl}}"
+        sslCertificatePubRootDir: "/etc/pki/nginx"
+        sslCertificatePubLocation: "/etc/pki/nginx/{{ proxyName }}.crt"
+        sslCertificateKeyRootDir: "/etc/pki/nginx/private"
+        sslCertificateKeyLocation: "/etc/pki/nginx/private/{{ proxyName }}.key"
+        enableHttpHeaders: "{{enableHttpHeaders}}"
+  block:
+    - name: Init systemd services
+      block:
+        - include_role:
+            name: nginx
+        # - include_role:
+        #     name: kazcert
+        - include_role:
+            name: iac-root-certs
+
+        - name: Init default error pages directory
+          file:
+            state: directory
+            path: "{{appRootDir}}/nginx-default-pages"
+            owner: nginx
+            group: nginx
+            mode: '0750'
+
+        - name: Create 40x.html and 50x.html
+          template:
+            src: "{{ item.template }}"
+            dest: "{{appRootDir}}/nginx-default-pages/{{ item.name }}"
+            owner: nginx
+            group: nginx
+          with_items:
+            - { name: "40x.html", template: "templates/40x.html.j2" }
+            - { name: "50x.html", template: "templates/50x.html.j2" }
+
+        - name: Configure selinux (custom pages)
+          shell: |
+            setsebool -P httpd_can_network_connect on
+            chcon -Rt httpd_sys_content_t {{appRootDir}}/nginx-default-pages/
+
+        - name: Install libX11.x86_64 libXext.x86_64 libXrender.x86_64 libpng.x86_64
+          yum:
+            name:
+              - libX11
+              - libXext
+              - libXrender
+              - libpng
+            state: latest
+          when: ansible_os_family=="RedHat"
+
+        - name: Ensure unzip installed
+          package:
+            name: unzip
+            state: present
+
+        - name: Nginx configuration
+          block:
+            - name: Ssl certificates
+              block:
+                - name: Ensures {{proxyPass.nginx.sslCertificatePubRootDir}} dir exists
+                  file:
+                    path: "{{proxyPass.nginx.sslCertificatePubRootDir}}"
+                    state: directory
+                - name: Copy ssl pub certificate
+                  copy:
+                    src: "{{ sslCertificate.pub }}"
+                    dest: "{{ proxyPass.nginx.sslCertificatePubLocation }}"
+                    mode: "0600"
+
+                - name: Ensures {{proxyPass.nginx.sslCertificateKeyRootDir}} dir exists
+                  file:
+                    path: "{{proxyPass.nginx.sslCertificateKeyRootDir}}"
+                    state: directory
+
+                - name: Copy ssl private certificate
+                  copy:
+                    src: "{{ sslCertificate.key }}"
+                    dest: "{{ proxyPass.nginx.sslCertificateKeyLocation }}"
+                    mode: "0600"
+
+              when: sslCertificate is defined and sslCertificate is not none
+
+            - name: Copy server configuration
+              template:
+                src: templates/nginx_server.conf.j2
+                dest: "{{ proxyPass.nginx.serverConfFile }}"
+
+            - name: Copy server location default configuration
+              template:
+                src: templates/nginx_server.conf.location.j2
+                dest: "{{ proxyPass.nginx.serverLocationConfFile }}"
+
+
+            - name: Configure firewalld
+              block:
+                - name: Open {{ worldPort }} port
+                  firewalld:
+                    port: "{{ worldPort }}/tcp"
+                    zone: public
+                    permanent: yes
+                    immediate: yes
+                    state: enabled
+
+                - name: Restart firewalld
+                  service:
+                    name: firewalld
+                    state: restarted
+
+                - name: Ensure libsemanage-python installed
+                  package:
+                    name: libsemanage-python
+                    state: present
+
+                - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+                  seboolean:
+                    name: httpd_can_network_connect
+                    state: yes
+                    persistent: yes
+                  when: ansible_selinux != "false"
+
+                - name: Ensure policycoreutils-python installed
+                  package:
+                    name: policycoreutils-python
+                    state: present
+
+                - name: semanage port {{ worldPort }}
+                  shell: "semanage port -a -t http_port_t  -p tcp {{worldPort}}"
+                  ignore_errors: yes
+
+                - name: Reload nginx
+                  service:
+                    name: nginx
+                    state: reloaded

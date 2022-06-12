@@ -1,0 +1,25 @@
+playbookRunEnv: # this parameters must be passed to playbook via -e parameter
+    appEnv:             "{{ DEPLOY_APP_ENVIRONMENT }}"
+    vault: 
+        serverUrl: "https://vault.aq.servers.lan:8210"
+        secretPath:     "{{ APP_VAULT_SECRET_PATH | default(omit) }}"
+        user:           "{{ APP_VAULT_USER | default(omit) }}"
+        pwd:            "{{ APP_VAULT_PWD | default(omit) }}"
+        
+    deploymentArtifactsPath: "{{ DEPLOY_ARTIFACTS_PATH | default(omit) }}"
+
+app:
+    name: YourServiceName
+    description: Your service description
+    appEntryPoint: bin/netcoreapp2.0/Yoda.dll
+    serviceRootDir: "/home/devops/services"
+                
+    deployArtifactsPath: "{{ playbookRunEnv.deploymentArtifactsPath }}"
+
+    environment: "{{ playbookRunEnv.appEnv }}"
+    vault:
+        serverUrl: "{{ playbookRunEnv.vault.serverUrl }}"
+        secretPath: "{{ playbookRunEnv.vault.secretPath }}"
+        userName: "{{ playbookRunEnv.vault.user }}"
+        userPassword: "{{ playbookRunEnv.vault.pwd }}"
+    dotnetPackage: 

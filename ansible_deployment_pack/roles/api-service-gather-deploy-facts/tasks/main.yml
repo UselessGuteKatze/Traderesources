@@ -1,0 +1,32 @@
+- name: api service - gather all systemd services facts
+  service_facts:
+
+- name: Gather occupied tcp v4 ports
+  shell: netstat -nlt4 | grep -oP '(?<=(127.0.0.1:)|(0.0.0.0:))(\d+)'
+  register: used_ports
+
+- name: Set bind_port as first available port
+  set_fact:
+    bind_port: "{{ allowedPorts | difference(used_ports.stdout_lines | map('int') | list) | first | default(0) }}"
+  failed_when: bind_port | int == 0
+
+- name: api service - set basic facts
+  set_fact:
+    baseAppNameWithPrefix: "{{baseAppName}}-autogen-"
+    currentDeployingAppName: "{{baseAppName}}-autogen-{{ lookup('pipe', 'date +%Y-%m-%d-%H-%M-%s') }}"
+
+- name: api service - set basic facts
+  set_fact:
+    deployFacts:
+      baseAppName: "{{ baseAppName }}"
+      deployAppName: "{{ currentDeployingAppName }}"
+      servicesToDisable: "{{ ansible_facts.services.values() | to_json | from_json | json_query(runningServicesQuery) }}"
+      bindPort: "{{ bind_port }}"
+      listenUrl: "http://localhost:{{bind_port}}"
+      appUnpackDir: "{{ appRootDir }}/{{currentDeployingAppName}}.service"
+  vars:
+    runningServicesQuery: "[? starts_with(name, '{{ baseAppNameWithPrefix }}')].{name: name, appUnpackDir: join('/', ['{{ appRootDir }}', name])}"
+
+- name: Debug deploy facts
+  debug:
+    var: deployFacts

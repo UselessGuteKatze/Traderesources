@@ -1,0 +1,26 @@
+[Unit]
+Description={{ item.description }}
+DefaultDependencies=no
+Wants=network.target # network is required
+After=network.target
+
+[Service]
+WorkingDirectory={{ item.serviceHomeDir }}
+ExecStart=/usr/bin/dotnet {{ item.serviceHomeDir }}/{{ item.entryDll }}
+Restart=always
+RestartSec=10
+SyslogIdentifier={{ item.serviceName }}
+User=devops
+Group=devops
+
+Environment=ASPNETCORE_ENVIRONMENT={{ item.environment }}
+Environment=DOTNET_ENVIRONMENT={{ item.environment }}
+Environment=vault__serverUrl={{ item.vault.serverUrl }}
+Environment=vault__secretsPath={{ item.vault.secretPath }}
+Environment=vault__userName={{ item.vault.userName }}
+Environment=vault__userPassword={{ item.vault.userPassword }}
+{% if appAdditionalEnvironmentVars %}
+Environment={{ appAdditionalEnvironmentVars }}
+{% endif %}
+[Install]
+WantedBy=multi-user.target
